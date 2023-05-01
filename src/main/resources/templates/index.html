@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"> <!-- IMPORTANT when working with in thymeleaf -->
+<head>
+    <meta charset="UTF-8">
+    <title>Alpha Solutions</title>
+</head>
+<body>
+<h1>Alpha Solutions</h1>
+<span th:each="name : ${names}" >
+    <span th:text="'hello ' + ${name}"/>  <!-- ${} for every component for specifying an attribute -->
+    </br>
+</span>
+</body>
+</html>
