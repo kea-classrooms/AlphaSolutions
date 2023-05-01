@@ -1,5 +1,5 @@
 FROM lakruzz/lamj:latest
-
+# docker-image
 # ENV MYSQL_ROOT_PASSWORD=root
 
 ENV PORT=8080
