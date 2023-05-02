@@ -1,5 +1,6 @@
 package com.example.alphasolutions.service;
 
+import com.example.alphasolutions.DTOs.NameDTO;
 import com.example.alphasolutions.repository.AlphaSolutionsDataBase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -16,8 +17,12 @@ public class AlphaSolutionsService {
      alphaSolutionsDataBase = (AlphaSolutionsDataBase) context.getBean(impl); //context.getBean bliver converted til AlphaSolutionsDatabse
     }
 
-    public List<String> getNames() {
+    public List<NameDTO> getNames() {
         return alphaSolutionsDataBase.getNames();
 
+    }
+
+    public void addName(NameDTO nameToAdd) {
+        alphaSolutionsDataBase.addName(nameToAdd.getName());
     }
 }

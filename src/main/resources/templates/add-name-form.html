@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"> <!-- IMPORTANT when working with in thymeleaf -->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Add name</h1>
+<form action="#" th:action="@{/as/add}" method="post" th:object="${nameToAdd}">
+    <span>
+        Name to add:
+        <input type="text" th:field="*{name}"/>
+    </span>
+    <br>
+    <button type="submit" th:text="'Add name'"/>
+</form>
+</body>
+</html>

@@ -6,9 +6,10 @@
 </head>
 <body>
 <h1>Alpha Solutions</h1>
-<span th:each="name : ${names}" >
-    <span th:text="'hello ' + ${name}"/>  <!-- ${} for every component for specifying an attribute -->
+<span th:each="nameDTO : ${names}" >
+    <span th:text="'Hello ' + ${nameDTO.name}"/>  <!-- ${} for every component for specifying an attribute -->
     </br>
 </span>
+<a href="/as/add"><button>Add name</button></a>
 </body>
 </html>
