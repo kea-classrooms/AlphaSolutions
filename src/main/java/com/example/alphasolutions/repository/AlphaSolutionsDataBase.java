@@ -3,6 +3,7 @@ package com.example.alphasolutions.repository;
 import com.example.alphasolutions.DTOs.NameDTO;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,10 +38,39 @@ public class AlphaSolutionsDataBase {
             Connection con = DataBaseManager.getConnection();
             String query = "INSERT INTO names(nameString) VALUE (?)";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, nameToAdd);
-            ps.executeUpdate();
+            ps.setString(1, nameToAdd); // Replaces the first (and only) '?' in the query string with the value of 'nameToAdd'
+            ps.executeUpdate(); // executeUpdate instead of executeQuery, since this is an insert/post method, and thus we don't need a ResultSet
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+    public void resetDatabase(Boolean shouldHaveTestData) {
+        //A method to reset our database, only used for testing
+        try {
+            Connection con = DataBaseManager.getConnection();
+
+            /* We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
+            which I then execute chronologically: */
+
+            //The first is for dropping the old instance of the table
+            String dropTableQuery = "DROP TABLE IF EXISTS names";
+            PreparedStatement dropTablePS = con.prepareStatement(dropTableQuery);
+            dropTablePS.executeUpdate();
+
+            //The second is for creating the new instance of the table, by doing these first 2 steps we have a clean slate
+            String createTableQuery = "CREATE TABLE names (nameString varchar(255), nameID int primary key auto_increment)";
+            PreparedStatement createTablePS = con.prepareStatement(createTableQuery);
+            createTablePS.executeUpdate();
+
+            //Finally I insert the test data, if the shouldHaveTestData boolean is set to true
+            if (shouldHaveTestData){
+                String insertDataQuery = "INSERT INTO names (nameString) VALUES ('Carl Harlang'), ('Sadek Alsukafi'), ('Tore Simonsen'), ('Simone Gottbrecht')";
+                PreparedStatement insertDataPS = con.prepareStatement(insertDataQuery);
+                insertDataPS.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

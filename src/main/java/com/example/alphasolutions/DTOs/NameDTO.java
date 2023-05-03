@@ -1,5 +1,7 @@
 package com.example.alphasolutions.DTOs;
 
+
+//Just a *very* simple DTO, will be removed again, but needed to test database
 public class NameDTO {
     String name;
 

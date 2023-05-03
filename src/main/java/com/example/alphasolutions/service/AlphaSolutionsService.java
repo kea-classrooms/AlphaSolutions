@@ -23,6 +23,7 @@ public class AlphaSolutionsService {
     }
 
     public void addName(NameDTO nameToAdd) {
+        //Simple service method, these might get longer and more convoluted later
         alphaSolutionsDataBase.addName(nameToAdd.getName());
     }
 }
