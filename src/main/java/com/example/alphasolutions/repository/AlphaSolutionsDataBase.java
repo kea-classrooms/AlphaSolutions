@@ -44,6 +44,21 @@ public class AlphaSolutionsDataBase {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteName(String name) {
+        try{
+            Connection con = DataBaseManager.getConnection();
+            //Deletes name with nameString equal to the name parameter
+            String query = "DELETE FROM names WHERE nameString = ?;";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, name);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public void resetDatabase(Boolean shouldHaveTestData) {
         //A method to reset our database, only used for testing
         try {
@@ -72,5 +87,4 @@ public class AlphaSolutionsDataBase {
             throw new RuntimeException(e);
         }
     }
-
 }

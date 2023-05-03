@@ -26,4 +26,8 @@ public class AlphaSolutionsService {
         //Simple service method, these might get longer and more convoluted later
         alphaSolutionsDataBase.addName(nameToAdd.getName());
     }
+
+    public void deleteName(String name) {
+        alphaSolutionsDataBase.deleteName(name);
+    }
 }

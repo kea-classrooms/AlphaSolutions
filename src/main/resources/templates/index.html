@@ -9,6 +9,7 @@
 <h3>Here you can see some names :)</h3>
 <span th:each="nameDTO : ${names}" >
     <span th:text="'Hello ' + ${nameDTO.name}"/>  <!-- ${} for every component for specifying an attribute -->
+    <a th:href="@{/as/delete/{name}(name=${nameDTO.name})}"><button>Delete</button></a> <!-- delete button -->
     </br>
 </span>
 <!-- a link to the current url/as/add which will go to our add-name-form -->

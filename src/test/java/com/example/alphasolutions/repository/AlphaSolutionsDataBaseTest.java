@@ -30,8 +30,8 @@ public class AlphaSolutionsDataBaseTest {
     }
 
     @Test
-    public void testGetNames() throws SQLException {
-        // Call the getNames method and check that the result contains the inserted name
+    public void testGetNames(){
+        // Test that the GetNames() method returns a list of size 4, as we insert 4 entries as test data in resetDatabase()
         assertEquals(4, alphaSolutionsDataBase.getNames().size());
     }
 
@@ -44,5 +44,12 @@ public class AlphaSolutionsDataBaseTest {
         ps.setString(1, "Therese");
         assertNotNull(ps.executeQuery());
         assertEquals(alphaSolutionsDataBase.getNames().size(), namesListInitSize + 1);
+    }
+
+    @Test
+    void deleteName() {
+        //Just deletes one of the test entries in our database, and tests that the size of the list has decreased by 1
+        alphaSolutionsDataBase.deleteName("Tore Simonsen");
+        assertEquals(alphaSolutionsDataBase.getNames().size(), namesListInitSize - 1);
     }
 }

@@ -4,10 +4,7 @@ import com.example.alphasolutions.DTOs.NameDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.Name;
 import java.util.List;
@@ -43,4 +40,14 @@ public class AlphaSolutionsController {
         return "add-name-success";
     }
 
+    @GetMapping("/delete/{name}")
+    public String delete(Model model, @PathVariable String name){
+        //Call service method
+        asService.deleteName(name);
+
+        //Setup a DTO to tell user which name was deleted
+        NameDTO deletedName = new NameDTO(name);
+        model.addAttribute("deletedName", deletedName);
+        return "name-deleted";
+    }
 }
