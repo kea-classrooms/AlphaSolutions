@@ -26,7 +26,7 @@ public class AlphaSolutionsController {
         return "index";
     }
 
-    // Just some test endpoints for adding names to our database through the webapp
+    // Just some test endpoints for adding names to our database through the WebApp
     @GetMapping("/add")
     public String add(Model model){
         NameDTO nameToAdd = new NameDTO();
