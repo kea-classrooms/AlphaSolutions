@@ -14,20 +14,20 @@ import java.util.List;
 @Repository("AlphaSolutions")
 public class AlphaSolutionsDataBase {
     public List<NameDTO> getNames(){
-        List<NameDTO> names = new ArrayList<>(); // Oprettelse af en liste af strings, som skal indeholde names
+        List<NameDTO> names = new ArrayList<>(); // Creating a list of Strings that contains names
         try{
             Connection con = DataBaseManager.getConnection(); // connection to the database
-            String query = "SELECT nameString from names"; // definere den query vi vil sende til databasen
-            PreparedStatement ps = con.prepareStatement(query); // klargøre query statement til SQL
-            ResultSet rs = ps.executeQuery(); // resultsettet af vores query gemmes
-            while (rs.next()){ // Så længe resultsettet har en linje, så tilføjes den til arraylisten ved navnet names
+            String query = "SELECT nameString from names"; // defines the query that we want to send to the database
+            PreparedStatement ps = con.prepareStatement(query); // prepare query statement til SQL
+            ResultSet rs = ps.executeQuery(); // Result-set of our query is saved
+            while (rs.next()){ // As long as the result-set has a line, It'll add to the ArrayList by the name: names.
                 names.add(new NameDTO(rs.getString(1)));
             }
 
 
 
 
-        } catch (SQLException e) { // Hvis dataen ikke stemmer overens, så kastes en exception, for at indgå et crash.
+        } catch (SQLException e) { // If the data does'nt match, 'throws' an exception to avoid crash.
             throw new RuntimeException(e);
         }
         return names;

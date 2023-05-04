@@ -20,7 +20,7 @@ public class AlphaSolutionsController {
 
 
     @GetMapping("/")
-    public String index(Model model){ //Metoden er klar til at sende data fra service til template
+    public String index(Model model){ //The method is ready to send data from service to template
         List<NameDTO> names = asService.getNames();
         model.addAttribute("names", names);
         return "index";
