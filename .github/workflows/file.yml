@@ -3,8 +3,7 @@ name: file.yml
 on:
   workflow_dispatch:
   pull_request:
-    branches:
-      -master
+    branches: [master]
 
 jobs:
   build:
