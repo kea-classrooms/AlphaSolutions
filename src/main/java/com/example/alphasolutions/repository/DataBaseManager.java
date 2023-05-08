@@ -13,7 +13,7 @@ public class DataBaseManager {
     private static String url, username, password;
 
     //viser hvilken værdi fra application.properties vi vil trække
-    @Value("${spring.datasource.url}") 
+    @Value("${spring.datasource.url}")
     public void setUrl(String url){
         DataBaseManager.url = url;
     }

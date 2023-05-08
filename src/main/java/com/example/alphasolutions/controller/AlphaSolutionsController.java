@@ -20,13 +20,13 @@ public class AlphaSolutionsController {
 
     //Metoden er klar til at sende data fra service til template
     @GetMapping("/")
-    public String index(Model model){ 
+    public String index(Model model){
         List<NameDTO> names = asService.getNames();
         model.addAttribute("names", names);
         return "index";
     }
 
-    // Just some test endpoints for adding names to our database through the webapp
+    // Just some test endpoints for adding names to our database through the WebApp
     @GetMapping("/add")
     public String add(Model model){
         NameDTO nameToAdd = new NameDTO();
