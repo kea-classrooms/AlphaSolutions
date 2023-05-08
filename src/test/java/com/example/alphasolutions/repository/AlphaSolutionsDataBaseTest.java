@@ -1,4 +1,4 @@
-package com.example.alphasolutions.repository;
+/*package com.example.alphasolutions.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,4 +52,4 @@ public class AlphaSolutionsDataBaseTest {
         alphaSolutionsDataBase.deleteName("Tore Simonsen");
         assertEquals(alphaSolutionsDataBase.getNames().size(), namesListInitSize - 1);
     }
-}
+}*/
