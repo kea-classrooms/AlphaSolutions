@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Name;
 import java.util.List;
 
 @Controller
@@ -19,8 +18,9 @@ public class AlphaSolutionsController {
     }
 
 
+    //Metoden er klar til at sende data fra service til template
     @GetMapping("/")
-    public String index(Model model){ //The method is ready to send data from service to template
+    public String index(Model model){
         List<NameDTO> names = asService.getNames();
         model.addAttribute("names", names);
         return "index";
