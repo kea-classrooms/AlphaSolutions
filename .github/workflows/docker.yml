@@ -1,0 +1,29 @@
+name: Render Deployment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+      - name: Build and test Docker image
+        run: |
+          docker build -t my-docker-image .
+          docker run --rm my-docker-image ./mvnw verify
+      - name: Deploy to Render
+        uses: render-deploy/render-action@v1.3.0
+        with:
+          name: my-service
+          region: us-west
+          env: prod
+          dockerfile: Dockerfile
+          id: ${{ secrets.RENDER_EMAIL }}
+          password: ${{ secrets.RENDER_PASSWORD }}
