@@ -15,7 +15,9 @@ jobs:
         with:
           java-version: 17
           distribution: 'temurin'
-      - name: Build and test Docker image
-        run: |
-          docker build  -t alphasolutions .
+      - name: Build Docker image
+        run:
+          docker build -t alphasolutions .
+      - name: Run Docker image
+        run:
           docker run -it --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions
