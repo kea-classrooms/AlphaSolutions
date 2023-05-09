@@ -1,4 +1,4 @@
-name: Render Deployment
+name: Docker Build
 
 on:
   workflow_dispatch:
@@ -18,12 +18,3 @@ jobs:
         run: |
           docker build  -t alphasolutions .
           docker run -it --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions
-      - name: Deploy to Render
-        uses: render-deploy/render-action@v1.3.0
-        with:
-          name: CTSS Alpha Solutions
-          region: eu-central
-          env: prod
-          dockerfile: Dockerfile
-          id: ${{ secrets.RENDER_EMAIL }}
-          password: ${{ secrets.RENDER_PASSWORD }}
