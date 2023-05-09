@@ -10,17 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
         with:
-          java-version: 17
-          distribution: 'temurin'
-      - name: Copy Java files to Docker build context
-        run: |
-          mkdir -p DockerContext/src/main/java/com/example/test
-          cp -r src/main/java/com/example/test/* DockerContext/src/main/java/com/example/test/
-      - name: Build Docker image
-        run: docker build -t alphasolutions DockerContext
-      - name: Test Docker image
-        run:
-          docker run --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions java -cp /app:/app/lib/* com.example.test.TestApplication
+          context: .
+          file: ./Dockerfile
+          push: false
