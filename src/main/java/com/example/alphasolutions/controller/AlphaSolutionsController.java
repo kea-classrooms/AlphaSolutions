@@ -37,7 +37,7 @@ public class AlphaSolutionsController {
     public String add(@ModelAttribute("nameToAdd") NameDTO nameToAdd){
         asService.addName(nameToAdd);
         return "add-name-success";
-    }
+    } //Post Re-direct til get kommando
 
     @GetMapping("/delete/{name}")
     public String delete(Model model, @PathVariable String name){
