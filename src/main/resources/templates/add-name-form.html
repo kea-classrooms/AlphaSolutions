@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1>Add name</h1>
-<!-- We create a form which on 'submit' will go to the post method of the url 'url/as/add' -->
-<form action="#" th:action="@{/as/add}" method="post" th:object="${nameToAdd}">
+<!-- We create a form which on 'submit' will go to the post method of the url 'url/add' -->
+<form action="#" th:action="@{/add}" method="post" th:object="${nameToAdd}">
     <span>
         Name to add:
         <!-- A text input that changes the 'name' field of the object specified above -->
