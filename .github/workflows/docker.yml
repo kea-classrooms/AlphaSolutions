@@ -15,9 +15,12 @@ jobs:
         with:
           java-version: 17
           distribution: 'temurin'
-      - name: Build and test Docker image
-        run: 
-          docker build  -t alphasolutions .
+      - name: Copy Java files to Docker build context
+        run: |
+          mkdir -p DockerContext/src/main/java/com/example/test
+          cp -r src/main/java/com/example/test/* DockerContext/src/main/java/com/example/test/
+      - name: Build Docker image
+        run: docker build -t alphasolutions DockerContext
       - name: Test Docker image
         run:
-          docker run --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions
+          docker run --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions java -cp /app:/app/lib/* com.example.test.TestApplication
