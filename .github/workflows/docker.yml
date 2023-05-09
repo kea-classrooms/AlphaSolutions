@@ -20,4 +20,4 @@ jobs:
           docker build -t alphasolutions .
       - name: Run Docker image
         run:
-          docker run --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions
+          docker run -its --rm --name alphasolutions --pid=host -p 8080:8080 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root alphasolutions
