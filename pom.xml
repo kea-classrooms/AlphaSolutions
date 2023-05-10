@@ -42,19 +42,4 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.example.test.TestApplication</mainClass>
-					<profiles>
-						<profile>${spring.profiles.active}</profile>
-					</profiles>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>
