@@ -1,6 +1,5 @@
 package com.example.alphasolutions.controller;
 
-import com.example.alphasolutions.DTOs.EmployeeDTO;
 import com.example.alphasolutions.DTOs.NameDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Controller;
@@ -9,11 +8,9 @@ import org.springframework.web.bind.annotation.*;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
-import javax.naming.Name;
 import java.util.List;
 
 @Controller
-@RequestMapping("as")
 public class AlphaSolutionsController {
     AlphaSolutionsService asService;
 
@@ -50,7 +47,7 @@ public class AlphaSolutionsController {
     public String add(@ModelAttribute("nameToAdd") NameDTO nameToAdd){
         asService.addName(nameToAdd);
         return "add-name-success";
-    }
+    } //Post Re-direct til get kommando
 
     @GetMapping("/delete/{name}")
     public String delete(Model model, @PathVariable String name){
