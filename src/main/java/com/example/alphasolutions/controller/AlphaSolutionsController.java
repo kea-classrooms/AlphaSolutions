@@ -1,5 +1,6 @@
 package com.example.alphasolutions.controller;
 
+import com.example.alphasolutions.DTOs.EmployeeDTO;
 import com.example.alphasolutions.DTOs.NameDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Controller;
