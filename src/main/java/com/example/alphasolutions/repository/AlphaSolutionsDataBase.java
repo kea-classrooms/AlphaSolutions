@@ -1,18 +1,53 @@
 package com.example.alphasolutions.repository;
 
-import com.example.alphasolutions.DTOs.NameDTO;
+import com.example.alphasolutions.DTOs.EmployeeDTO;
+import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 @Repository("AlphaSolutions")
 public class AlphaSolutionsDataBase {
+
+  //  private static final Logger logger = LoggerFactory.getLogger(AlphaSolutionsDataBase.class);
+    public List<EmployeeDTO> getEmployee() {
+    //    logger.info("findAll method called");
+        //System.out.println("getEmployee() method called"); // print statement to indicate that the method is being called
+        List<EmployeeDTO> employees = new ArrayList<>();
+        try {
+            Connection con = DataBaseManager.getConnection();
+            String query = "SELECT empID, empName FROM employee"; // select both columns
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            //int rowCount = 0;
+            while (rs.next()) {
+                int empID = rs.getInt("empID"); // retrieve empID column
+                String empName = rs.getString("empName"); // retrieve empName column
+                employees.add(new EmployeeDTO(empID, empName)); // pass both columns to the constructor
+              //  rowCount++;
+            }
+           // System.out.println("Retrieved " + rowCount + " rows from employee table"); // print statement to indicate the number of rows retrieved
+             con.close(); // close connection after ResultSet is processed
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
+    }
+
+
+}
+
+
+
+
+   /*
     public List<NameDTO> getNames(){
         List<NameDTO> names = new ArrayList<>(); // Oprettelse af en liste af strings, som skal indeholde names
         try{
@@ -32,6 +67,7 @@ public class AlphaSolutionsDataBase {
         }
         return names;
     }
+
 
     public void addName(String nameToAdd) {
         try{
@@ -59,13 +95,15 @@ public class AlphaSolutionsDataBase {
     }
 
 
-    public void resetDatabase(Boolean shouldHaveTestData) {
+
+
+   public void resetDatabase(Boolean shouldHaveTestData) {
         //A method to reset our database, only used for testing
         try {
             Connection con = DataBaseManager.getConnection();
 
-            /* We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
-            which I then execute chronologically: */
+            // We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
+            //which I then execute chronologically:
 
             //The first is for dropping the old instance of the table
             String dropTableQuery = "DROP TABLE IF EXISTS names";
@@ -87,4 +125,7 @@ public class AlphaSolutionsDataBase {
             throw new RuntimeException(e);
         }
     }
-}
+
+     */
+
+

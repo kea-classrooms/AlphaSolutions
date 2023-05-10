@@ -16,9 +16,7 @@ Create Table positions (
 
 CREATE Table employee (
  empID integer auto_increment Primary key,
-  empName varchar (255),
-  positionID integer,
-  foreign key (positionID) REFERENCES positions(PosID)
+  empName varchar (255)
   );
 
 Create Table project (

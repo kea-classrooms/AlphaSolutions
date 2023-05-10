@@ -1,10 +1,13 @@
 package com.example.alphasolutions.controller;
 
+import com.example.alphasolutions.DTOs.EmployeeDTO;
 import com.example.alphasolutions.DTOs.NameDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import javax.naming.Name;
 import java.util.List;
@@ -18,7 +21,16 @@ public class AlphaSolutionsController {
         this.asService = asService;
     }
 
+    @GetMapping("/")
+    public String index(Model model) { //Metoden er klar til at sende data fra service til template
+        List<EmployeeDTO> employees = asService.getEmployee();
+        model.addAttribute("employees", employees);
+        return "index";
+    }
+   // private static final Logger logger = LoggerFactory.getLogger(AlphaSolutionsController.class);
+}
 
+/*
     @GetMapping("/")
     public String index(Model model){ //Metoden er klar til at sende data fra service til template
         List<NameDTO> names = asService.getNames();
@@ -50,4 +62,5 @@ public class AlphaSolutionsController {
         model.addAttribute("deletedName", deletedName);
         return "name-deleted";
     }
-}
+
+    */
