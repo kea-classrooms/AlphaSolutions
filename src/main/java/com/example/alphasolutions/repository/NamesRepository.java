@@ -4,17 +4,16 @@ import com.example.alphasolutions.DTOs.EmployeeDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 @Repository("AlphaSolutions")
-public class AlphaSolutionsDataBase {
+public class NamesRepository {
 
   //  private static final Logger logger = LoggerFactory.getLogger(AlphaSolutionsDataBase.class);
     public List<EmployeeDTO> getEmployee() {
@@ -68,7 +67,6 @@ public class AlphaSolutionsDataBase {
         return names;
     }
 
-
     public void addName(String nameToAdd) {
         try{
             Connection con = DataBaseManager.getConnection();
@@ -95,15 +93,13 @@ public class AlphaSolutionsDataBase {
     }
 
 
-
-
-   public void resetDatabase(Boolean shouldHaveTestData) {
+    public void resetDatabase(Boolean shouldHaveTestData) {
         //A method to reset our database, only used for testing
         try {
             Connection con = DataBaseManager.getConnection();
 
-            // We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
-            //which I then execute chronologically:
+            /* We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
+            which I then execute chronologically: */
 
             //The first is for dropping the old instance of the table
             String dropTableQuery = "DROP TABLE IF EXISTS names";
