@@ -3,7 +3,6 @@ package com.example.alphasolutions.repository;
 import com.example.alphasolutions.DTOs.NameDTO;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository("AlphaSolutions")
-public class AlphaSolutionsDataBase {
+public class NamesRepository {
     public List<NameDTO> getNames(){
         List<NameDTO> names = new ArrayList<>(); // Creating a list of Strings that contains names
         try{

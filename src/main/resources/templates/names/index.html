@@ -9,10 +9,10 @@
 <h3>Here you can see some names :)</h3>
 <span th:each="nameDTO : ${names}" >
     <span th:text="'Hello ' + ${nameDTO.name}"/>  <!-- ${} for every component for specifying an attribute -->
-    <a th:href="@{/delete/{name}(name=${nameDTO.name})}"><button>Delete</button></a> <!-- delete button -->
+    <a th:href="@{/names/delete/{name}(name=${nameDTO.name})}"><button>Delete</button></a> <!-- delete button -->
     </br>
 </span>
 <!-- a link to the current url/add which will go to our add-name-form -->
-<a href="/add"><button>Add name</button></a>
+<a href="/names/add"><button>Add name</button></a>
 </body>
 </html>
