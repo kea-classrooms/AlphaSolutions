@@ -22,6 +22,7 @@ public class DataBaseManager {
     public void setUsername(String username) {
         DataBaseManager.username = username;
     }
+
     @Value("${spring.datasource.password}")
     public void setPassword(String password) {
         DataBaseManager.password = password;

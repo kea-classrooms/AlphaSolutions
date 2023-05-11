@@ -1,6 +1,7 @@
 package com.example.alphasolutions.repository;
 
 import com.example.alphasolutions.DTOs.EmployeeDTO;
+import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +15,53 @@ import java.util.List;
 
 @Repository("AlphaSolutions")
 public class NamesRepository {
+    public List<TasksDTO> getTasks() {
+        List<TasksDTO> tasks = new ArrayList<>();
+        try {
+            Connection con = DataBaseManager.getConnection();
+            String query = "Select taskName, taskDescription, cost, totalEstimatedTime from tasks"; // select columns
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String taskName = rs.getString("taskName");
+                String taskDescription = rs.getString("taskDescription");
+                int cost = rs.getInt("cost");
+                int totalEstimatedTime = rs.getInt("totalEstimatedTime");
+                tasks.add(new TasksDTO(taskName, taskDescription, cost, totalEstimatedTime)); // pass both columns to the constructor
+                //  rowCount++;
+            }
+            // System.out.println("Retrieved " + rowCount + " rows from employee table"); // print statement to indicate the number of rows retrieved
+            //con.close(); // close connection after ResultSet is processed
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tasks;
+    }
 
-  //  private static final Logger logger = LoggerFactory.getLogger(AlphaSolutionsDataBase.class);
-    public List<EmployeeDTO> getEmployee() {
+    public void addTask(String taskName, String taskDescription, int cost, int totalEstimatedTime) {
+        try {
+            Connection con = DataBaseManager.getConnection();
+            String query = "INSERT INTO Tasks(taskName, taskDescription, cost, totalEstimatedTime) VALUE (?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, taskName);
+            ps.setString(2, taskDescription);
+            ps.setInt(3, cost);
+            ps.setInt(4, totalEstimatedTime);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+
+
+
+
+   /*
+
+
+   //  private static final Logger logger = LoggerFactory.getLogger(AlphaSolutionsDataBase.class);
+    public List<EmployeeDTO> getEmployees() {
     //    logger.info("findAll method called");
         //System.out.println("getEmployee() method called"); // print statement to indicate that the method is being called
         List<EmployeeDTO> employees = new ArrayList<>();
@@ -40,32 +85,6 @@ public class NamesRepository {
         return employees;
     }
 
-
-}
-
-
-
-
-   /*
-    public List<NameDTO> getNames(){
-        List<NameDTO> names = new ArrayList<>(); // Creating a list of Strings that contains names
-        try{
-            Connection con = DataBaseManager.getConnection(); // connection to the database
-            String query = "SELECT nameString from names"; // defines the query that we want to send to the database
-            PreparedStatement ps = con.prepareStatement(query); // prepare query statement til SQL
-            ResultSet rs = ps.executeQuery(); // Result-set of our query is saved
-            while (rs.next()){ // As long as the result-set has a line, It'll add to the ArrayList by the name: names.
-                names.add(new NameDTO(rs.getString(1)));
-            }
-
-
-
-
-        } catch (SQLException e) { // If the data does'nt match, 'throws' an exception to avoid crash.
-            throw new RuntimeException(e);
-        }
-        return names;
-    }
 
     public void addName(String nameToAdd) {
         try{
@@ -98,12 +117,14 @@ public class NamesRepository {
         try {
             Connection con = DataBaseManager.getConnection();
 
-            /* We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
-            which I then execute chronologically: */
+          We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
+            which I then execute chronologically:
 
             //The first is for dropping the old instance of the table
-            String dropTableQuery = "DROP TABLE IF EXISTS names";
-            PreparedStatement dropTablePS = con.prepareStatement(dropTableQuery);
+
+
+           //String dropTableQuery = "DROP TABLE IF EXISTS names";
+           // PreparedStatement dropTablePS = con.prepareStatement(dropTableQuery);
             dropTablePS.executeUpdate();
 
             //The second is for creating the new instance of the table, by doing these first 2 steps we have a clean slate

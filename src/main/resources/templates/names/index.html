@@ -7,8 +7,8 @@
 <body>
 <h1>Alpha Solutions</h1>
 <h3>Here you can see some employees</h3>
-<span th:each="EmployeeDTO : ${employees}" >
-    <span th:text="'Hello ' + ${EmployeeDTO.empID + EmployeeDTO.empName}"/>  <!-- ${} for every component for specifying an attribute -->
+<span th:each="TasksDTO : ${tasks}" >
+    <span th:text="'Hello ' + ${TasksDTO.getTaskName() + TasksDTO.getCost() + TasksDTO.getTotalEstimatedTime() + TasksDTO.project_ID}"/>  <!-- ${} for every component for specifying an attribute -->
     </br>
 </span>
 <!-- a link to the current url/add which will go to our add-name-form -->
