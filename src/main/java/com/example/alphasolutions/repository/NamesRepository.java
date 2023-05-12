@@ -41,7 +41,7 @@ public class NamesRepository {
     public void addTask(String taskName, String taskDescription, int cost, int totalEstimatedTime) {
         try {
             Connection con = DataBaseManager.getConnection();
-            String query = "INSERT INTO Tasks(taskName, taskDescription, cost, totalEstimatedTime) VALUE (?,?,?,?)";
+            String query = "INSERT INTO tasks(taskName, taskDescription, cost, totalEstimatedTime) VALUE (?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, taskName);
             ps.setString(2, taskDescription);
