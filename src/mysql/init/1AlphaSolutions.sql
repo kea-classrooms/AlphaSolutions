@@ -1,6 +1,6 @@
 CREATE database if not exists alphasolutions default character set utf8;
 use alphasolutions; 
-DROP table if exists names, positions, employee,  WorksOn, project, tasks;
+DROP table if exists names, deadlines, positions, employee,  WorksOn, project, tasks;
 
 
 CREATE table names (
@@ -28,11 +28,9 @@ Create Table project (
  Create Table tasks (
   taskID integer primary key auto_increment,
   taskName varchar(255),
+  taskDescription varchar(255),
   cost Integer,
-  totalEstimatedTime Integer,
-  project_ID integer,
-  superTask integer,
-  foreign key (project_ID) references project(projectID)
+  totalEstimatedTime Integer
 );
 
  
@@ -41,4 +39,7 @@ Create Table worksOn (
   taskID integer,
   foreign key (empID) REFERENCES employee(empID),
   foreign key(taskID) REFERENCES tasks(taskID)
+);
+Create Table deadlines (
+    deadline_time DATETIME PRIMARY KEY 
 );
