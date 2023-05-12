@@ -6,10 +6,13 @@
 </head>
 <body>
 <h1>Alpha Solutions</h1>
-<h3>Here you can see some employees</h3>
-<span th:each="EmployeeDTO : ${employees}" >
-    <span th:text="'Hello ' + ${EmployeeDTO.empID + EmployeeDTO.empName}"/>  <!-- ${} for every component for specifying an attribute -->
+<h3>Here you can see some names :)</h3>
+<span th:each="nameDTO : ${names}" >
+    <span th:text="'Hello ' + ${nameDTO.name}"/>  <!-- ${} for every component for specifying an attribute -->
+    <a th:href="@{/delete/{name}(name=${nameDTO.name})}"><button>Delete</button></a> <!-- delete button -->
     </br>
 </span>
+<!-- a link to the current url/add which will go to our add-name-form -->
+<a href="/add"><button>Add name</button></a>
 </body>
 </html>

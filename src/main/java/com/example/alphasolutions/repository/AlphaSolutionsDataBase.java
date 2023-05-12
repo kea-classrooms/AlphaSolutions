@@ -1,10 +1,9 @@
 package com.example.alphasolutions.repository;
 
-
 import com.example.alphasolutions.DTOs.NameDTO;
-import com.example.alphasolutions.service.AlphaSolutionsService;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,16 +13,18 @@ import java.util.List;
 
 @Repository("AlphaSolutions")
 public class AlphaSolutionsDataBase {
-    public List<NameDTO> getNames() {
+    public List<NameDTO> getNames(){
         List<NameDTO> names = new ArrayList<>(); // Creating a list of Strings that contains names
-        try {
+        try{
             Connection con = DataBaseManager.getConnection(); // connection to the database
             String query = "SELECT nameString from names"; // defines the query that we want to send to the database
             PreparedStatement ps = con.prepareStatement(query); // prepare query statement til SQL
             ResultSet rs = ps.executeQuery(); // Result-set of our query is saved
-            while (rs.next()) { // As long as the result-set has a line, It'll add to the ArrayList by the name: names.
+            while (rs.next()){ // As long as the result-set has a line, It'll add to the ArrayList by the name: names.
                 names.add(new NameDTO(rs.getString(1)));
             }
+
+
 
 
         } catch (SQLException e) { // If the data does'nt match, 'throws' an exception to avoid crash.
@@ -32,9 +33,8 @@ public class AlphaSolutionsDataBase {
         return names;
     }
 
-
     public void addName(String nameToAdd) {
-        try {
+        try{
             Connection con = DataBaseManager.getConnection();
             String query = "INSERT INTO names(nameString) VALUE (?)";
             PreparedStatement ps = con.prepareStatement(query);
@@ -46,7 +46,7 @@ public class AlphaSolutionsDataBase {
     }
 
     public void deleteName(String name) {
-        try {
+        try{
             Connection con = DataBaseManager.getConnection();
             //Deletes name with nameString equal to the name parameter
             String query = "DELETE FROM names WHERE nameString = ?;";
@@ -64,8 +64,8 @@ public class AlphaSolutionsDataBase {
         try {
             Connection con = DataBaseManager.getConnection();
 
-            // We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
-            //which I then execute chronologically:
+            /* We cannot use the ";" symbol in our string queries, thus I split the query in 3, with PreparedStatement for each,
+            which I then execute chronologically: */
 
             //The first is for dropping the old instance of the table
             String dropTableQuery = "DROP TABLE IF EXISTS names";
@@ -78,7 +78,7 @@ public class AlphaSolutionsDataBase {
             createTablePS.executeUpdate();
 
             //Finally I insert the test data, if the shouldHaveTestData boolean is set to true
-            if (shouldHaveTestData) {
+            if (shouldHaveTestData){
                 String insertDataQuery = "INSERT INTO names (nameString) VALUES ('Carl Harlang'), ('Sadek Alsukafi'), ('Tore Simonsen'), ('Simone Gottbrecht')";
                 PreparedStatement insertDataPS = con.prepareStatement(insertDataQuery);
                 insertDataPS.executeUpdate();
@@ -87,7 +87,4 @@ public class AlphaSolutionsDataBase {
             throw new RuntimeException(e);
         }
     }
-
 }
-
-
