@@ -22,11 +22,13 @@
     <tbody>
     <tr th:if="${TasksDTO.superTask == 0}" th:each="TasksDTO : ${tasks}">
         <td th:text="${TasksDTO.getTaskID()}"/>
-        <td th:text="${TasksDTO.getTaskName()}"></td>
+        <td>
+            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}"><span th:text="${TasksDTO.getTaskName()}"/></a>
+        </td>
         <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>
             <span th:each="subtask : ${TasksDTO.getSubtasks()}" >
-                <span th:text="${subtask}" />
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"><span th:text="${subtask}"/></a>
                 <br>
             </span>
         </td>

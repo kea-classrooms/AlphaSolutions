@@ -33,4 +33,11 @@ public class TasksController {
        taskService.addTask(tasksDTO);
         return "redirect:/";
     }
+
+    @GetMapping("/viewTask/{id}")
+    public String viewTask(Model model, @PathVariable int id){
+        TasksDTO task = taskService.getTask(id);
+        model.addAttribute("task", task);
+        return "tasks/view-task";
+    }
 }

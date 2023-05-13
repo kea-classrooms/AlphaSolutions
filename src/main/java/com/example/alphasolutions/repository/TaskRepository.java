@@ -1,6 +1,7 @@
 package com.example.alphasolutions.repository;
 
 import com.example.alphasolutions.DTOs.TasksDTO;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -75,5 +76,29 @@ public class TaskRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public TasksDTO getTask(int id) {
+        TasksDTO task = null;
+        try{
+            Connection con = DatabaseManager.getConnection();
+            String query = "SELECT * FROM tasks WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                task = new TasksDTO(
+                        rs.getInt("taskID"),
+                        rs.getString("taskName"),
+                        rs.getString("taskDescription"),
+                        rs.getInt("cost"),
+                        rs.getInt("totalEstimatedTime"),
+                        rs.getInt("superTask"),
+                        getSubtasks(rs.getInt("taskID"))); // pass both columns to the constructor
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
     }
 }

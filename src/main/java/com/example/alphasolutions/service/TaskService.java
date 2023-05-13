@@ -26,4 +26,8 @@ public class TaskService {
         //Simple service method, these might get longer and more convoluted later
         taskRepository.addTask(taskToAdd.getTaskName(),taskToAdd.getTaskDescription(), taskToAdd.getCost(), taskToAdd.getTotalEstimatedTime());
     }
+
+    public TasksDTO getTask(int id) {
+        return taskRepository.getTask(id);
+    }
 }
