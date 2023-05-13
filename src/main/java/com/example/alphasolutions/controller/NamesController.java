@@ -1,54 +1,23 @@
 package com.example.alphasolutions.controller;
 
-import com.example.alphasolutions.DTOs.EmployeeDTO;
-import com.example.alphasolutions.DTOs.TasksDTO;
+import com.example.alphasolutions.DTOs.NameDTO;
 import com.example.alphasolutions.service.AlphaSolutionsService;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
 @Controller
-public class NamesController {
+public class AlphaSolutionsController {
     AlphaSolutionsService asService;
 
-    public NamesController(AlphaSolutionsService asService) {
+    public AlphaSolutionsController(AlphaSolutionsService asService) {
         this.asService = asService;
     }
 
-    @GetMapping("/")
-    public String index(Model model) { //Metoden er klar til at sende data fra service til template
-        List<TasksDTO> tasks = asService.getTasks();
-        model.addAttribute("tasks", tasks);
-        return "tasks/task-overview";
-    }
-    @GetMapping("/addTask")
-    public String add(Model model){
-        TasksDTO taskToAdd = new TasksDTO();
-        model.addAttribute("taskToAdd", taskToAdd);
-        return "names/Create-Task-form";
-    }
-    @PostMapping("/addTask")
-    public String addTask(@ModelAttribute("taskForm") TasksDTO tasksDTO) {
-       asService.addTask(tasksDTO);
-        return "redirect:/";
-    }
-}
 
-   /* @GetMapping("/")
-    public String index(Model model) { //Metoden er klar til at sende data fra service til template
-        List<EmployeeDTO> employees = asService.getEmployees();
-        model.addAttribute("employees", employees);
-        return "names/index";
-    }
-
-    */
-
-
-/*
+    //Metoden er klar til at sende data fra service til template
     @GetMapping("/")
     public String index(Model model){
         List<NameDTO> names = asService.getNames();
@@ -80,5 +49,4 @@ public class NamesController {
         model.addAttribute("deletedName", deletedName);
         return "name-deleted";
     }
-
-    */
+}

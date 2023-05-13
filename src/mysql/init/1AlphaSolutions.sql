@@ -1,42 +1,49 @@
-CREATE database if not exists alphasolutions default character set utf8;
+CREATE database if NOT EXISTS alphasolutions DEFAULT CHARACTER SET utf8;
 use alphasolutions; 
-DROP table if exists names, positions, employee,  WorksOn, project, tasks;
+DROP TABLE IF EXISTS names, deadlines, positions, employee,  WorksOn, project, tasks;
 
 
-CREATE table names (
-	nameString varchar (255), 
-    nameID int primary key auto_increment
+CREATE TABLE names (
+	nameString VARCHAR (255),
+    nameID INT PRIMARY KEY auto_increment
     );
 
-Create Table positions (
-  posID integer Primary key,
-  posName varchar(255)
+CREATE TABLE positions (
+  posID INTEGER PRIMARY KEY,
+  posName VARCHAR(255)
 );
 
 
-CREATE Table employee (
- empID integer auto_increment Primary key,
-  empName varchar (255)
+CREATE TABLE employee (
+ empID INTEGER auto_increment PRIMARY KEY,
+  empName VARCHAR (255)
   );
 
-Create Table project (
-  projectID integer auto_increment primary key,
-  projectName varchar(255),
-  managerEmployee_ID integer,
-  foreign key (managerEmployee_ID) references employee(empID)
+CREATE TABLE project (
+  projectID INTEGER auto_increment PRIMARY KEY,
+  projectName VARCHAR(255),
+  managerEmployee_ID INTEGER,
+  FOREIGN KEY (managerEmployee_ID) REFERENCES employee(empID)
  );
- Create Table tasks (
-  taskID integer primary key auto_increment,
-  taskName varchar(255),
-  taskDescription varchar(255),
-  cost Integer,
-  totalEstimatedTime Integer
+
+ CREATE TABLE tasks (
+  taskID INTEGER PRIMARY KEY auto_increment,
+  taskName VARCHAR(255),
+  taskDescription VARCHAR(255),
+  cost INTEGER,
+  totalEstimatedTime INTEGER
+  project_ID integer,
+  superTask integer,
+  foreign key (project_ID) references project(projectID)
 );
 
  
-Create Table worksOn (
-  empID integer,
-  taskID integer,
-  foreign key (empID) REFERENCES employee(empID),
-  foreign key(taskID) REFERENCES tasks(taskID)
+CREATE TABLE worksOn (
+  empID INTEGER,
+  taskID INTEGER,
+  FOREIGN KEY (empID) REFERENCES employee(empID),
+  FOREIGN KEY (taskID) REFERENCES tasks(taskID)
+);
+CREATE TABLE deadlines (
+    deadline_time DATETIME PRIMARY KEY
 );
