@@ -11,16 +11,25 @@
 <table class="table">
     <thead>
     <tr>
+        <th scope="col">Task #</th>
         <th scope="col">Task title</th>
         <th scope="col">Task description</th>
+        <th scope="col">Subtasks</th>
         <th scope="col">Time estimate</th>
         <th scope="col">Cost estimate</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="TasksDTO : ${tasks}">
+    <tr th:if="${TasksDTO.superTask == 0}" th:each="TasksDTO : ${tasks}">
+        <td th:text="${TasksDTO.getTaskID()}"/>
         <td th:text="${TasksDTO.getTaskName()}"></td>
         <td th:text="${TasksDTO.getTaskDescription()}"></td>
+        <td>
+            <span th:each="subtask : ${TasksDTO.getSubtasks()}" >
+                <span th:text="${subtask}" />
+                <br>
+            </span>
+        </td>
         <td th:text="${TasksDTO.getTotalEstimatedTime()}"></td>
         <td th:text="${TasksDTO.getCost()}"></td>
     </tr>
