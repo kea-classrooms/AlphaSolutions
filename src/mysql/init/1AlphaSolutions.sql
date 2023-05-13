@@ -1,6 +1,6 @@
 CREATE database if NOT EXISTS alphasolutions DEFAULT CHARACTER SET utf8;
 use alphasolutions; 
-DROP TABLE IF EXIST names, deadlines, positions, employee,  WorksOn, project, tasks;
+DROP TABLE IF EXISTS names, deadlines, positions, employee,  WorksOn, project, tasks;
 
 
 CREATE TABLE names (
