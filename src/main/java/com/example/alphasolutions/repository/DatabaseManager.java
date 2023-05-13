@@ -8,24 +8,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @Component
-public class DataBaseManager {
+public class DatabaseManager {
     private static Connection con = null;
     private static String url, username, password;
 
     //viser hvilken værdi fra application.properties vi vil trække
     @Value("${spring.datasource.url}")
     public void setUrl(String url){
-        DataBaseManager.url = url;
+        DatabaseManager.url = url;
     }
 
     @Value("${spring.datasource.username}")
     public void setUsername(String username) {
-        DataBaseManager.username = username;
+        DatabaseManager.username = username;
     }
 
     @Value("${spring.datasource.password}")
     public void setPassword(String password) {
-        DataBaseManager.password = password;
+        DatabaseManager.password = password;
     }
 
     public static Connection getConnection() {
