@@ -3,12 +3,15 @@ package com.example.alphasolutions.DTOs;
 import java.util.List;
 
 public class TasksDTO {
+    // Properties of the task object
     private int taskID;
     private String taskName;
     private String taskDescription;
     private int cost;
     private int totalEstimatedTime;
     List<TasksDTO> subtasks;
+    // ID of the task's super task (if applicable)
+    int superTask;
 
     public int getSuperTask() {
         return superTask;
@@ -18,8 +21,8 @@ public class TasksDTO {
         this.superTask = superTask;
     }
 
-    int superTask;
 
+    // Constructor to create a new TasksDTO object with the given properties
     public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks) {
         this.taskID = taskID;
         this.superTask = superTask;
@@ -30,9 +33,10 @@ public class TasksDTO {
         this.subtasks = subtasks;
     }
 
+    // Empty constructor for TasksDTO object
     public TasksDTO() {
     }
-
+// Getter and setter methods for the task object properties
     public String getTaskName() {
         return taskName;
     }
@@ -40,6 +44,7 @@ public class TasksDTO {
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
+
     public String getTaskDescription() {
         return taskDescription;
     }
