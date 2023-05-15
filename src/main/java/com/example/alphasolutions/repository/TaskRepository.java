@@ -66,7 +66,7 @@ public class TaskRepository {
     public void addTask(String taskName, String taskDescription, int cost, int totalEstimatedTime) {
         try {
             Connection con = DatabaseManager.getConnection();
-            String query = "INSERT INTO tasks(taskName, taskDescription, cost, totalEstimatedTime) VALUE (?,?,?,?)";
+            String query = "INSERT INTO tasks(taskName, taskDescription, cost, totalEstimatedTime, project_ID) VALUE (?,?,?,?,1)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, taskName);
             ps.setString(2, taskDescription);

@@ -27,9 +27,11 @@
         </td>
         <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>
-            <span th:each="subtask : ${TasksDTO.getSubtasks()}" >
-                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"><span th:text="${subtask}"/></a>
-                <br>
+            <span th:each="subtask : ${TasksDTO.getSubtasks()}">
+                <a href="/addSubtask"><button>Create Subtask</button></a>
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"><span th:text="${subtaskTest}"/></a>
+                <a th:href="@{/viewTask/(id = ${subtask.getTaskID()})}">
+                    <br>
             </span>
         </td>
         <td th:text="${TasksDTO.getTotalEstimatedTime()}"></td>
@@ -38,5 +40,6 @@
     </tbody>
 </table>
 <a href="/addTask"><button>Create task!</button></a>
+
 </body>
 </html>

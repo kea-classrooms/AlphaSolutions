@@ -23,13 +23,26 @@ public class TasksController {
         return "tasks/task-overview";
     }
     @GetMapping("/addTask")
-    public String add(Model model){
+    public String add(Model model) {
         TasksDTO taskToAdd = new TasksDTO();
         model.addAttribute("taskToAdd", taskToAdd);
         return "tasks/create-task-form";
+
+
+    }
+    @GetMapping("/addSubtask")
+    public String addSubtask(Model model){
+        TasksDTO subtaskToAdd = new TasksDTO();
+        model.addAttribute("SubtaskToAdd", subtaskToAdd);
+        return "tasks/create-subtask-form";
     }
     @PostMapping("/addTask")
     public String addTask(@ModelAttribute("taskForm") TasksDTO tasksDTO) {
+       taskService.addTask(tasksDTO);
+        return "redirect:/";
+    }
+    @PostMapping ("/addSubtask")
+    public String addSubTask(@ModelAttribute("SubtaskForm") TasksDTO tasksDTO) {
        taskService.addTask(tasksDTO);
         return "redirect:/";
     }
