@@ -17,6 +17,7 @@
         <th scope="col">Subtasks</th>
         <th scope="col">Time estimate</th>
         <th scope="col">Cost estimate</th>
+
     </tr>
     </thead>
     <tbody>
@@ -27,16 +28,18 @@
         </td>
         <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>
-            <span th:each="subtask : ${TasksDTO.getSubtasks()}" >
+            <span th:each="subtask : ${TasksDTO.getSubtasks()}">
                 <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"><span th:text="${subtask}"/></a>
                 <br>
             </span>
         </td>
         <td th:text="${TasksDTO.getTotalEstimatedTime()}"></td>
         <td th:text="${TasksDTO.getCost()}"></td>
+
     </tr>
     </tbody>
 </table>
 <a href="/addTask"><button>Create task!</button></a>
+
 </body>
 </html>
