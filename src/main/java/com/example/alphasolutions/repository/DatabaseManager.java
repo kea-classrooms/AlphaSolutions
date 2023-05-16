@@ -13,6 +13,7 @@ public class DatabaseManager {
     private static String url, username, password;
 
     //Shows which value from application.properties we want to recieve
+    @Value("${spring.datasource.url}")
     public void setUrl(String url){
         DatabaseManager.url = url;
     }
