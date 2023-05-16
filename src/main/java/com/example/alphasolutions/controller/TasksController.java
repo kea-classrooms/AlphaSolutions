@@ -17,7 +17,7 @@ public class TasksController {
     }
 
     // This method maps to the root URL of the web application and sends the list of tasks to the view
-    @GetMapping("/")
+    @GetMapping("")
     public String index(Model model) {
         // Get the list of tasks from the service
         List<TasksDTO> tasks = taskService.getTasks();
@@ -26,7 +26,7 @@ public class TasksController {
         model.addAttribute("tasks", tasks);
 
         // Return the name of the overview template to be rendered
-        return "tasks/task-overview";
+        return "index";
     }
 
     // This method maps to the "addTask" URL and sends a blank task object to the view
