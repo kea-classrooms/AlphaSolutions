@@ -71,15 +71,16 @@ public class TaskRepository {
     }
 
     // This method adds a new task to the database with the given properties
-    public void addTask(String taskName, String taskDescription, int cost, int totalEstimatedTime) {
+    public void addTask(TasksDTO taskToAdd) {
         try {
             Connection con = DatabaseManager.getConnection();
-            String query = "INSERT INTO tasks(taskName, taskDescription, cost, totalEstimatedTime, project_ID) VALUE (?,?,?,?,1)";
+            String query = "INSERT INTO tasks(taskName, taskDescription, cost, totalEstimatedTime, project_ID, superTask) VALUE (?,?,?,?,1,?)";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, taskName);
-            ps.setString(2, taskDescription);
-            ps.setInt(3, cost);
-            ps.setInt(4, totalEstimatedTime);
+            ps.setString(1, taskToAdd.getTaskName());
+            ps.setString(2, taskToAdd.getTaskDescription());
+            ps.setInt(3, taskToAdd.getCost());
+            ps.setInt(4, taskToAdd.getTotalEstimatedTime());
+            ps.setInt(5, taskToAdd.getSuperTask());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

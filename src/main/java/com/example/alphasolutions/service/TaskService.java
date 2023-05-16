@@ -27,7 +27,7 @@ public class TaskService {
     public void addTask(TasksDTO taskToAdd) {
         //This method adds a new task to the database.
         //It accepts a TasksDTO object as a parameter, and calls the addTask method in the taskRepository object to add the task to the database.
-        taskRepository.addTask(taskToAdd.getTaskName(),taskToAdd.getTaskDescription(), taskToAdd.getCost(), taskToAdd.getTotalEstimatedTime());
+        taskRepository.addTask(taskToAdd);
     }
 
     public TasksDTO getTask(int id) {

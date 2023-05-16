@@ -38,6 +38,9 @@ public class TasksController {
         // Add the blank task object to the model object to be passed to the view
         model.addAttribute("taskToAdd", taskToAdd);
 
+        List<TasksDTO> allTasks = taskService.getTasks();
+        model.addAttribute("allTasks", allTasks);
+
         // Return the name of the view template to be rendered
         return "tasks/create-task-form";
     }
