@@ -12,7 +12,7 @@ public class DatabaseManager {
     private static Connection con = null;
     private static String url, username, password;
 
-    //viser hvilken værdi fra application.properties vi vil trække
+    //Shows which value from application.properties we want to recieve
     @Value("${spring.datasource.url}")
     public void setUrl(String url){
         DatabaseManager.url = url;
