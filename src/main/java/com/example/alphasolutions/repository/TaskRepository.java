@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository("AlphaSolutions")
 public class TaskRepository {
-    // This method retrieves all tasks from the database and returns them as a list of TasksDTO objects
     public List<TasksDTO> getTasks() {
         List<TasksDTO> tasks = new ArrayList<>();
         try {
@@ -96,7 +95,6 @@ public class TaskRepository {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
-                // Create a new TasksDTO object with the retrieved data, including its subtasks (if any)
                 task = new TasksDTO(
                         rs.getInt("taskID"),
                         rs.getString("taskName"),
