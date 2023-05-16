@@ -9,16 +9,7 @@ public class TasksDTO {
     private int cost;
     private int totalEstimatedTime;
     List<TasksDTO> subtasks;
-
-    public int getSuperTask() {
-        return superTask;
-    }
-
-    public void setSuperTask(int superTask) {
-        this.superTask = superTask;
-    }
-
-    int superTask;
+    private int superTask;
 
     public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks) {
         this.taskID = taskID;
@@ -79,6 +70,15 @@ public class TasksDTO {
 
     public void setSubtasks(List<TasksDTO> subtasks) {
         this.subtasks = subtasks;
+    }
+
+
+    public int getSuperTask() {
+        return superTask;
+    }
+
+    public void setSuperTask(int superTask) {
+        this.superTask = superTask;
     }
 
     @Override
