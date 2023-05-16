@@ -17,7 +17,7 @@ public class TasksController {
     }
 
     // This method maps to the root URL of the web application and sends the list of tasks to the view
-    @GetMapping("")
+    @GetMapping("/")
     public String index(Model model) {
         // Get the list of tasks from the service
         List<TasksDTO> tasks = taskService.getTasks();
