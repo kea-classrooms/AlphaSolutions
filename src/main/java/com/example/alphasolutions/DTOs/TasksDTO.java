@@ -69,7 +69,6 @@ public class TasksDTO {
         this.totalEstimatedTime = totalEstimatedTime;
     }
 
-
     public int getTaskID() {
         return taskID;
     }
