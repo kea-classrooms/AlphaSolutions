@@ -12,6 +12,7 @@ public class TasksDTO {
     List<TasksDTO> subtasks;
     // ID of the task's super task (if applicable)
     private int superTask;
+    private int projectID;
 
     // Constructor to create a new TasksDTO object with the given properties
     public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks) {
@@ -89,5 +90,13 @@ public class TasksDTO {
     @Override
     public String toString() {
         return String.format("%d: %s", taskID, taskName);
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 }
