@@ -17,7 +17,8 @@ public class TaskRepository {
         List<TasksDTO> tasks = new ArrayList<>();
         try {
             Connection con = DatabaseManager.getConnection();
-            String query = "Select * from tasks WHERE project_ID = ?"; // select columns
+            //Get all tasks from project with project_ID = id
+            String query = "Select * from tasks WHERE project_ID = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();

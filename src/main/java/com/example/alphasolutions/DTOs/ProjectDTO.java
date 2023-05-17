@@ -1,12 +1,16 @@
 package com.example.alphasolutions.DTOs;
 
 public class ProjectDTO {
+    // Properties of the project object
+
     private int projectID, managerEmployee_ID;
     private String projectName;
 
+    // Empty constructor for TasksDTO object
     public ProjectDTO() {
     }
 
+    // Constructor to create a new TasksDTO object with the given properties
     public ProjectDTO(int projectID,
                       String projectName,
                       int managerEmployee_ID) {
@@ -15,6 +19,7 @@ public class ProjectDTO {
         this.managerEmployee_ID = managerEmployee_ID;
     }
 
+    // Getter and setter methods for the task object properties
     public int getProjectID() {
         return projectID;
     }
