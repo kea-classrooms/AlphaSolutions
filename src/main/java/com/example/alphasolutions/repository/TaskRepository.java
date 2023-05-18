@@ -111,6 +111,7 @@ public class TaskRepository {
         return task;
     }
 
+    // This method deletes a task with the given ID from the database
     public void deleteTask(int taskID) {
         try {
             Connection con = DatabaseManager.getConnection();

@@ -67,10 +67,12 @@ public class TasksController {
         // Return the name of the view template to be rendered
         return "tasks/view-task";
     }
+    // This method maps to the "delete/{taskID}" URL and deletes a task from the database
     @GetMapping("/delete/{taskID}")
     public String delete(@PathVariable int taskID) {
-        // Call service method
+        // Call the service method to delete the task
         taskService.deleteTask(taskID);
+        // Redirect to the root URL to refresh the task list
         return "redirect:/";
     }
 }
