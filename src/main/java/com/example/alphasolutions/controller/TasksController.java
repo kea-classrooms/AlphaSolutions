@@ -26,7 +26,7 @@ public class TasksController {
         model.addAttribute("tasks", tasks);
 
         // Return the name of the overview template to be rendered
-        return "index";
+        return "tasks/task-overview";
     }
 
     // This method maps to the "addTask" URL and sends a blank task object to the view
