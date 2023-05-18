@@ -44,13 +44,13 @@ public class TaskRepository {
     // This method retrieves all subtasks of a given task ID from the database and returns them as a list of TasksDTO objects
     private List<TasksDTO> getSubtasks(int taskID) {
         List<TasksDTO> subtasks = new ArrayList<>();
-        try{
+        try {
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks WHERE superTask = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 // Create a new TasksDTO object for each subtask and add it to the subtasks list
                 subtasks.add(new TasksDTO(
                         rs.getInt("taskID"),
@@ -85,16 +85,17 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
     }
+
     // This method retrieves a task with the given ID from the database and returns it as a TasksDTO object
     public TasksDTO getTask(int id) {
         TasksDTO task = null;
-        try{
+        try {
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks WHERE taskID = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 task = new TasksDTO(
                         rs.getInt("taskID"),
                         rs.getString("taskName"),
@@ -108,5 +109,17 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
         return task;
+    }
+
+    public void deleteTask(int taskID) {
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "DELETE FROM tasks WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, taskID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

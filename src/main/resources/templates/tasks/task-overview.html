@@ -30,7 +30,11 @@
         <td th:text="${TasksDTO.getTaskID()}"/>
         <td>
             <!-- Create a link to view task details -->
-            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}"><span th:text="${TasksDTO.getTaskName()}"/></a>
+            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}">
+                <span th:text="${TasksDTO.getTaskName()}"/></a>
+            <a th:href="@{/delete/{taskID}(taskID=${TasksDTO.getTaskID()})}">
+                <button>Delete</button>
+            </a>
         </td>
         <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>

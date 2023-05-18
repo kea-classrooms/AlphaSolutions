@@ -35,4 +35,7 @@ public class TaskService {
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.
         return taskRepository.getTask(id);
     }
+    public void deleteTask(int taskID) {
+        taskRepository.deleteTask(taskID);
+    }
 }

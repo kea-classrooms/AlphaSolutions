@@ -67,4 +67,10 @@ public class TasksController {
         // Return the name of the view template to be rendered
         return "tasks/view-task";
     }
+    @GetMapping("/delete/{taskID}")
+    public String delete(@PathVariable int taskID) {
+        // Call service method
+        taskService.deleteTask(taskID);
+        return "redirect:/";
+    }
 }

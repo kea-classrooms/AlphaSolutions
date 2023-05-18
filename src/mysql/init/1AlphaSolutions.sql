@@ -42,11 +42,11 @@ CREATE TABLE worksOn (
     empID INTEGER,
     taskID INTEGER,
     FOREIGN KEY (empID) REFERENCES employee(empID),
-    FOREIGN KEY (taskID) REFERENCES tasks(taskID)
+    FOREIGN KEY (taskID) REFERENCES tasks(taskID) ON DELETE CASCADE
 );
 CREATE TABLE deadlines (
     deadline_time DATETIME,
     taskID INTEGER UNIQUE,
     PRIMARY KEY (deadline_time, taskID),
-    FOREIGN KEY (taskID) REFERENCES tasks(taskID)
+    FOREIGN KEY (taskID) REFERENCES tasks(taskID) ON DELETE CASCADE
 );
