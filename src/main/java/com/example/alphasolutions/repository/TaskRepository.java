@@ -1,5 +1,6 @@
 package com.example.alphasolutions.repository;
 
+import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Repository;

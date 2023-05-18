@@ -27,7 +27,7 @@ public class TasksController {
         model.addAttribute("projects", projects);
 
         // Return the name of the overview template to be rendered
-        return "tasks/task-overview";
+        return "index";
     }
 
     // This method maps to the "viewProject" URL of the web application and sends the list of tasks in the project to the view
