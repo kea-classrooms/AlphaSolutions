@@ -35,4 +35,36 @@ public class TaskService {
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.
         return taskRepository.getTask(id);
     }
+
+    public List<TasksDTO> getTaskWithUpdatedCost(){
+        // Gets the lists of task
+        List<TasksDTO> tasks = getTasks();
+        // Repeats with each task in the list
+        for (TasksDTO task : tasks) {
+            // Calculates the cost of the tasks
+            int cost = calculateTaskCost(task);
+            // Updates the task's cost
+            task.setCost(cost);
+        }
+        // Returns the updated list of tasks
+        return tasks;
+    }
+    private int calculateTaskCost(TasksDTO task) {
+        // Get the initial cost of the task
+        int cost = task.getCost();
+
+        // Check if the task has any subtasks
+        if (task.getSubtasks() != null) {
+            // Iterate over each subtask
+            for (TasksDTO subtask : task.getSubtasks()) {
+                // Recursively calculate the cost of the subtask
+                // by calling the calculateTaskCost method
+                cost += calculateTaskCost(subtask);
+            }
+        }
+
+        // Return the total cost of the task (including the subtasks)
+        return cost;
+    }
+
 }

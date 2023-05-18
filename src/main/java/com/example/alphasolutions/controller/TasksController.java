@@ -20,7 +20,8 @@ public class TasksController {
     @GetMapping("/")
     public String index(Model model) {
         // Get the list of tasks from the service
-        List<TasksDTO> tasks = taskService.getTasks();
+        //List<TasksDTO> tasks = taskService.getTasks();
+        List <TasksDTO> tasks = taskService.getTaskWithUpdatedCost();
 
         // Add the list of tasks to the model object to be passed to the view
         model.addAttribute("tasks", tasks);
@@ -60,6 +61,7 @@ public class TasksController {
     public String viewTask(Model model, @PathVariable int id){
         // Get the task with the given ID from the service
         TasksDTO task = taskService.getTask(id);
+
 
         // Add the task object to the model object to be passed to the view
         model.addAttribute("task", task);
