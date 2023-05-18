@@ -1,7 +1,7 @@
 package com.example.alphasolutions.repository;
 
+import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,12 +13,14 @@ import java.util.List;
 
 @Repository("AlphaSolutions")
 public class TaskRepository {
-    public List<TasksDTO> getTasks() {
+    public List<TasksDTO> getTasks(int id) {
         List<TasksDTO> tasks = new ArrayList<>();
         try {
             Connection con = DatabaseManager.getConnection();
-            String query = "Select * from tasks"; // select columns
+            //Get all tasks from project with project_ID = id
+            String query = "Select * from tasks WHERE project_ID = ?";
             PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 // Extract task data from the ResultSet
@@ -108,5 +110,38 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
         return task;
+    }
+
+    public List<ProjectDTO> getAllProjects() {
+        List<ProjectDTO> projects = new ArrayList<>();
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "SELECT * FROM project";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                projects.add(new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return projects;
+    }
+
+    public ProjectDTO getProject(int id) {
+        ProjectDTO project = null;
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "SELECT * FROM project WHERE projectID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                project = new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return project;
     }
 }
