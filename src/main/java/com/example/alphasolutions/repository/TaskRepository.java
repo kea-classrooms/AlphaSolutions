@@ -13,12 +13,14 @@ import java.util.List;
 
 @Repository("AlphaSolutions")
 public class TaskRepository {
-    public List<TasksDTO> getTasks() {
+    public List<TasksDTO> getTasks(int id) {
         List<TasksDTO> tasks = new ArrayList<>();
         try {
             Connection con = DatabaseManager.getConnection();
-            String query = "Select * from tasks"; // select columns
+            //Get all tasks from project with project_ID = id
+            String query = "Select * from tasks WHERE project_ID = ?";
             PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 // Extract task data from the ResultSet
@@ -44,13 +46,13 @@ public class TaskRepository {
     // This method retrieves all subtasks of a given task ID from the database and returns them as a list of TasksDTO objects
     private List<TasksDTO> getSubtasks(int taskID) {
         List<TasksDTO> subtasks = new ArrayList<>();
-        try {
+        try{
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks WHERE superTask = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next()){
                 // Create a new TasksDTO object for each subtask and add it to the subtasks list
                 subtasks.add(new TasksDTO(
                         rs.getInt("taskID"),
@@ -85,17 +87,16 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
     }
-
     // This method retrieves a task with the given ID from the database and returns it as a TasksDTO object
     public TasksDTO getTask(int id) {
         TasksDTO task = null;
-        try {
+        try{
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks WHERE taskID = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            if (rs.next()){
                 task = new TasksDTO(
                         rs.getInt("taskID"),
                         rs.getString("taskName"),
@@ -109,6 +110,39 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
         return task;
+    }
+
+    public List<ProjectDTO> getAllProjects() {
+        List<ProjectDTO> projects = new ArrayList<>();
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "SELECT * FROM project";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                projects.add(new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return projects;
+    }
+
+    public ProjectDTO getProject(int id) {
+        ProjectDTO project = null;
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "SELECT * FROM project WHERE projectID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                project = new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return project;
     }
 
     // This method deletes a task with the given ID from the database

@@ -1,5 +1,6 @@
 package com.example.alphasolutions.service;
 
+import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,9 +21,9 @@ public class TaskService {
         taskRepository = (TaskRepository) context.getBean(impl); //context.getBean gets converted to the database TaskRepository
     }
 
-    public List<TasksDTO> getTasks() {
-        //This method returns a list of all tasks.
-        return taskRepository.getTasks();
+    public List<TasksDTO> getTasks(int id) {
+        //This method returns a list of all tasks in project with a specific id.
+        return taskRepository.getTasks(id);
     }
     public void addTask(TasksDTO taskToAdd) {
         //This method adds a new task to the database.
@@ -34,6 +35,15 @@ public class TaskService {
         //This method returns a task based on the task id provided.
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.
         return taskRepository.getTask(id);
+    }
+
+    public List<ProjectDTO> getAllProjects() {
+        //This method returns a list of all projects in out database.
+        return taskRepository.getAllProjects();
+    }
+
+    public ProjectDTO getProject(int id) {
+        return taskRepository.getProject(id);
     }
     public void deleteTask(int taskID) {
         taskRepository.deleteTask(taskID);
