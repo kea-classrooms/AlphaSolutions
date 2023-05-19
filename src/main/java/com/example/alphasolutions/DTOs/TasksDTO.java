@@ -1,6 +1,7 @@
 package com.example.alphasolutions.DTOs;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class TasksDTO {
@@ -13,17 +14,17 @@ public class TasksDTO {
     List<TasksDTO> subtasks;
     // ID of the task's super task (if applicable)
     private int superTask;
-    private LocalDateTime deadline_time;
+    private Date deadline_time;
 
     // Constructor to create a new TasksDTO object with the given properties
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks, LocalDateTime deadline_time) {
+    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, List<TasksDTO> subtasks, int superTask, Date deadline_time) {
         this.taskID = taskID;
-        this.superTask = superTask;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.cost = cost;
         this.totalEstimatedTime = totalEstimatedTime;
         this.subtasks = subtasks;
+        this.superTask = superTask;
         this.deadline_time = deadline_time;
     }
 
@@ -31,8 +32,15 @@ public class TasksDTO {
     public TasksDTO() {
     }
 
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, int deadline_time) {
+    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, Date deadline_time, Object o) {
     }
+
+    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, Date deadline_time, List<TasksDTO> taskID1) {
+    }
+
+    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, Date deadline_time) {
+    }
+
 
     // Getter and setter methods for the task object properties
     public String getTaskName() {
@@ -92,13 +100,12 @@ public class TasksDTO {
         this.superTask = superTask;
     }
 
-    public LocalDateTime getDeadline_time() {
+    public Date getDeadline_time() {
         return deadline_time;
     }
-    public void setDeadline_time(LocalDateTime deadline_time) {
+    public void setDeadline_time(Date deadline_time) {
         this.deadline_time = deadline_time;
     }
-
 
     @Override
     public String toString() {

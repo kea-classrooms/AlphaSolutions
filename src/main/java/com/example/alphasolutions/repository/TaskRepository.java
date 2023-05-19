@@ -8,8 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +37,9 @@ public class TaskRepository {
                 // Retrieve all subtasks of the current task using the getSubtasks() method
                 List<TasksDTO> subtasks = getSubtasks(rs.getInt("taskID"));
 
-                LocalDateTime deadline_time = LocalDateTime.of(2023, 5, 17, 10, 30);
+                Date deadline_time = Date.valueOf("deadline_time");
                 // Create a new TasksDTO object and add it to the tasks list
-                tasks.add(new TasksDTO(taskID, taskName, taskDescription, cost, totalEstimatedTime, superTask, subtasks, deadline_time));
+                tasks.add(new TasksDTO(taskID, taskName, taskDescription, cost, totalEstimatedTime, subtasks, superTask, deadline_time));
             }
         } catch (SQLException e) {
             // If an SQL exception occurs, wrap it in a RuntimeException and rethrow it
@@ -57,7 +59,7 @@ public class TaskRepository {
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                LocalDateTime localDateTime = rs.getTimestamp("deadline_time").toLocalDateTime();
+                Timestamp deadlineTime = rs.getTimestamp("deadline_time");
                 // Create a new TasksDTO object for each subtask and add it to the subtasks list
                 subtasks.add(new TasksDTO(
                         rs.getInt("taskID"),
@@ -66,8 +68,8 @@ public class TaskRepository {
                         rs.getInt("cost"),
                         rs.getInt("totalEstimatedTime"),
                         rs.getInt("superTask"),
-                        rs.getTimestamp("deadline_time"),
-                        null)));
+                        rs.getDate("deadline_time"),
+                        null));
                 // Subtasks don't have their own subtasks, so set this field to null
 
             }
@@ -79,7 +81,7 @@ public class TaskRepository {
 
     // This method adds a new task to the database with the given properties
     public void addTask(TasksDTO taskToAdd) {
-        LocalDateTime deadline_time = LocalDateTime.of(2023, 05, 17, 11, 50, 22, 34);
+        Date deadline_time = Date.valueOf("deadline_time");
         try {
             Connection con = DatabaseManager.getConnection();
             String query = "INSERT INTO tasks(taskName, taskDescription, cost, totalEstimatedTime, project_ID, superTask, deadline_time) VALUE (?,?,?,?,1,?,?)";
@@ -98,7 +100,7 @@ public class TaskRepository {
     // This method retrieves a task with the given ID from the database and returns it as a TasksDTO object
     public TasksDTO getTask(int id) {
         TasksDTO task = null;
-        LocalDateTime localDateTime = LocalDateTime.now();
+        Date localDateTime = Date.valueOf("deadline_time");
         try{
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks WHERE taskID = ?";
@@ -113,7 +115,7 @@ public class TaskRepository {
                         rs.getInt("cost"),
                         rs.getInt("totalEstimatedTime"),
                         rs.getInt("superTask"),
-                        rs.getInt("deadline_time"),
+                        rs.getDate("deadline_time"),
                         getSubtasks(rs.getInt("taskID"))); // pass the task ID to the getSubtasks method
 
 
