@@ -21,6 +21,9 @@
     <label for="cost">Cost:</label>
     <input type="number" id="cost" th:field="*{cost}" required><br>
 
+    <label for="deadline_time">Deadline:</label>
+    <input type="number" id="deadline_time" th:field="*{deadline_time}" required><br>
+
     <label for="superTask">Choose supertask:</label>
     <select th:field="*{superTask}">
         <option id="superTask" th:each="task : ${allTasks}" th:value="${task.taskID}" th:text="${task}"/>

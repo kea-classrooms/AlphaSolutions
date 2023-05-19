@@ -17,6 +17,7 @@
         <th scope="col">Subtasks</th>
         <th scope="col">Time estimate</th>
         <th scope="col">Cost estimate</th>
+        <th scope="col">Deadline</th>
 
     </tr>
     </thead>
@@ -35,6 +36,7 @@
         </td>
         <td th:text="${TasksDTO.getTotalEstimatedTime()}"></td>
         <td th:text="${TasksDTO.getCost()}"></td>
+        <td th:text="${TasksDTO.getDeadline_time()}"></td>
 
     </tr>
     </tbody>

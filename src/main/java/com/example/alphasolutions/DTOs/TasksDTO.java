@@ -1,5 +1,6 @@
 package com.example.alphasolutions.DTOs;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TasksDTO {
@@ -12,9 +13,10 @@ public class TasksDTO {
     List<TasksDTO> subtasks;
     // ID of the task's super task (if applicable)
     private int superTask;
+    private LocalDateTime deadline_time;
 
     // Constructor to create a new TasksDTO object with the given properties
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks) {
+    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks, LocalDateTime deadline_time) {
         this.taskID = taskID;
         this.superTask = superTask;
         this.taskName = taskName;
@@ -22,10 +24,14 @@ public class TasksDTO {
         this.cost = cost;
         this.totalEstimatedTime = totalEstimatedTime;
         this.subtasks = subtasks;
+        this.deadline_time = deadline_time;
     }
 
     // Empty constructor for TasksDTO object
     public TasksDTO() {
+    }
+
+    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, int deadline_time) {
     }
 
     // Getter and setter methods for the task object properties
@@ -85,6 +91,14 @@ public class TasksDTO {
     public void setSuperTask(int superTask) {
         this.superTask = superTask;
     }
+
+    public LocalDateTime getDeadline_time() {
+        return deadline_time;
+    }
+    public void setDeadline_time(LocalDateTime deadline_time) {
+        this.deadline_time = deadline_time;
+    }
+
 
     @Override
     public String toString() {
