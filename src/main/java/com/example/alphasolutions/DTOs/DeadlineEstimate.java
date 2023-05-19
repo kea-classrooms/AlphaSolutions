@@ -1,17 +1,18 @@
 package com.example.alphasolutions.DTOs;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.temporal.ChronoUnit;
 
 public class DeadlineEstimate {
 
         //Current date and time
-        LocalDateTime now = LocalDateTime.now();
+        Date now = Date.valueOf("");
 
         //Specify the duration for the deadline estimate
         long durationInHours = 48;
 
         //Calculate the estimated deadline
-        LocalDateTime deadline_time = now.plus(durationInHours, ChronoUnit.HOURS);
+        Date deadline_time = Date.valueOf("");
     }
 
