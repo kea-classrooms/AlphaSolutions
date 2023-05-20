@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.temporal.ChronoUnit;
 
-public class DeadlineEstimate {
+public class DeadlineEstimate { //Don't know if we should keep this class, with this piece of code
 
         //Current date and time
         Date now = Date.valueOf("");

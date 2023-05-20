@@ -3,17 +3,14 @@ package com.example.alphasolutions.repository;
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.swing.UIManager.*;
 
 @Repository("AlphaSolutions")
 public class TaskRepository {
