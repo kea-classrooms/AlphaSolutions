@@ -59,7 +59,6 @@ public class TaskRepository {
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                Timestamp deadlineTime = rs.getTimestamp("deadline_time");
                 // Create a new TasksDTO object for each subtask and add it to the subtasks list
                 subtasks.add(new TasksDTO(
                         rs.getInt("taskID"),
