@@ -15,6 +15,7 @@ public class TasksDTO {
     // ID of the task's super task (if applicable)
     private int superTask;
     private Date deadline_time;
+    private int projectID;
 
     // Constructor to create a new TasksDTO object with the given properties
     public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, List<TasksDTO> subtasks, int superTask, Date deadline_time) {
@@ -31,16 +32,6 @@ public class TasksDTO {
     // Empty constructor for TasksDTO object
     public TasksDTO() {
     }
-
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, Date deadline_time, Object o) {
-    }
-
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, Date deadline_time, List<TasksDTO> taskID1) {
-    }
-
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, Date deadline_time) {
-    }
-
 
     // Getter and setter methods for the task object properties
     public String getTaskName() {
@@ -110,5 +101,13 @@ public class TasksDTO {
     @Override
     public String toString() {
         return String.format("%d: %s", taskID, taskName);
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 }

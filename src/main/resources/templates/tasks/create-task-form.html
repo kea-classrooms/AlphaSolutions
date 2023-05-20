@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
+    <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <meta charset="UTF-8">
@@ -8,7 +9,10 @@
 </head>
 <body>
 <h1>Add Task</h1>
-<form action="#" th:action="@{/addTask}" method="POST" th:object="${taskToAdd}">
+<!-- Create a form to add a new task -->
+<!-- Here we define a form element with the attributes for HTTP method and Thymeleaf object -->
+<form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}">
+    <!-- Here we create a label element with text "Task Name:" -->
     <label for="taskName">Task Name:</label>
     <input type="text" id="taskName" th:field="*{taskName}" required><br>
 
@@ -25,7 +29,9 @@
     <input type="number" id="deadline_time" th:field="*{deadline_time}" required><br>
 
     <label for="superTask">Choose supertask:</label>
+    <!-- Select a supertask from a list -->
     <select th:field="*{superTask}">
+        <!-- Here we create an option element for each task in the list of all tasks, with the value of the task ID and text of the task name -->
         <option id="superTask" th:each="task : ${allTasks}" th:value="${task.taskID}" th:text="${task}"/>
     </select>
 
