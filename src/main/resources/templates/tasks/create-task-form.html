@@ -11,7 +11,7 @@
 <h1>Add Task</h1>
 <!-- Create a form to add a new task -->
 <!-- Here we define a form element with the attributes for HTTP method and Thymeleaf object -->
-<form action="#" th:action="@{/addTask}" method="POST" th:object="${taskToAdd}">
+<form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}">
     <!-- Here we create a label element with text "Task Name:" -->
     <label for="taskName">Task Name:</label>
     <input type="text" id="taskName" th:field="*{taskName}" required><br>
@@ -25,9 +25,14 @@
     <label for="cost">Cost:</label>
     <input type="number" id="cost" th:field="*{cost}" required><br>
 
+    <label for="deadline_time">Deadline:</label>
+    <input type="date" id="deadline_time" th:field="*{deadline_time}" required><br>
+
     <label for="superTask">Choose supertask:</label>
     <!-- Select a supertask from a list -->
     <select th:field="*{superTask}">
+        <!-- Add an option to not have a supertask -->
+        <option th:value="0" th:text="'No supertask'" />
         <!-- Here we create an option element for each task in the list of all tasks, with the value of the task ID and text of the task name -->
         <option id="superTask" th:each="task : ${allTasks}" th:value="${task.taskID}" th:text="${task}"/>
     </select>

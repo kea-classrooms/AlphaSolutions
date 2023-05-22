@@ -1,5 +1,7 @@
 package com.example.alphasolutions.DTOs;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class TasksDTO {
@@ -12,16 +14,28 @@ public class TasksDTO {
     List<TasksDTO> subtasks;
     // ID of the task's super task (if applicable)
     private int superTask;
+    private Date deadline_time;
+    private int projectID;
 
     // Constructor to create a new TasksDTO object with the given properties
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, int superTask, List<TasksDTO> subtasks) {
+    public TasksDTO(
+            int taskID,
+            String taskName,
+            String taskDescription,
+            int cost,
+            int totalEstimatedTime,
+            List<TasksDTO> subtasks,
+            int superTask,
+            Date deadline_time
+    ) {
         this.taskID = taskID;
-        this.superTask = superTask;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.cost = cost;
         this.totalEstimatedTime = totalEstimatedTime;
         this.subtasks = subtasks;
+        this.superTask = superTask;
+        this.deadline_time = deadline_time;
     }
 
     // Empty constructor for TasksDTO object
@@ -86,8 +100,23 @@ public class TasksDTO {
         this.superTask = superTask;
     }
 
+    public Date getDeadline_time() {
+        return deadline_time;
+    }
+    public void setDeadline_time(Date deadline_time) {
+        this.deadline_time = deadline_time;
+    }
+
     @Override
     public String toString() {
         return String.format("%d: %s", taskID, taskName);
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 }
