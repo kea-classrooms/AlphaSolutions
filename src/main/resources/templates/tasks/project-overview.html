@@ -38,7 +38,11 @@
             <!-- Iterate over subtasks within the task -->
             <!-- Create links to view subtask details -->
             <span th:each="subtask : ${TasksDTO.getSubtasks()}">
-                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"><span th:text="${subtask}"/></a>
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}">
+                    <span th:text="${subtask}"/></a>
+                <a th:href="@{/updateTask/{id}(id=${TasksDTO.getTaskID()})}">
+                <button>Update</button>
+            </a>
                 <br>
             </span>
         </td>
