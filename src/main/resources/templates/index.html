@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"> <!-- IMPORTANT when working with in thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Alpha Solutions</title>
+    <title>Create Task</title>
 </head>
 <body>
-<h1>Alpha Solutions</h1>
-<h3>Here you can see some names :)</h3>
-<span th:each="nameDTO : ${names}" >
-    <span th:text="'Hello ' + ${nameDTO.name}"/>  <!-- ${} for every component for specifying an attribute -->
-    <a th:href="@{/delete/{name}(name=${nameDTO.name})}"><button>Delete</button></a> <!-- delete button -->
-    </br>
+<h1>Welcome! Please choose a project:</h1>
+<span th:each="project : ${projects}">
+    <a th:href="@{/viewProject/{id}(id = ${project.projectID})}"><span th:text="${project}"/></a>
+    <br>
 </span>
-<!-- a link to the current url/add which will go to our add-name-form -->
-<a href="/add"><button>Add name</button></a>
 </body>
 </html>
