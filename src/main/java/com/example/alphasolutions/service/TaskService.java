@@ -4,6 +4,7 @@ import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -35,8 +36,10 @@ public class TaskService {
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.
         return taskRepository.getTask(id);
     }
+
     public void updateTask(TasksDTO updatedTask) {
         // Call the updateTask method of the taskRepository
         taskRepository.updateTask(updatedTask);
     }
+
 }
