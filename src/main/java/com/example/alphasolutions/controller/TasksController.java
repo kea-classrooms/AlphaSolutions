@@ -38,7 +38,7 @@ public class TasksController {
         model.addAttribute("project", project);
 
         // Get the list of tasks from the service
-        List <TasksDTO> tasks = taskService.getTaskWithUpdatedCost();
+        List <TasksDTO> tasks = taskService.getTaskWithUpdatedCost(id);
 
         // Add the list of tasks to the model object to be passed to the view
         model.addAttribute("tasks", tasks);

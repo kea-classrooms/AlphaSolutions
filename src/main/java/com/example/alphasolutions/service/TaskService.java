@@ -46,9 +46,9 @@ public class TaskService {
         return taskRepository.getProject(id);
     }
 
-    public List<TasksDTO> getTaskWithUpdatedCost(){
+    public List<TasksDTO> getTaskWithUpdatedCost(int id){
         // Gets the lists of task
-        List<TasksDTO> tasks = getTasks();
+        List<TasksDTO> tasks = getTasks(id);
         // Repeats with each task in the list
         for (TasksDTO task : tasks) {
             // Calculates the cost of the tasks
@@ -67,6 +67,7 @@ public class TaskService {
         if (task.getSubtasks() != null) {
             // Iterate over each subtask
             for (TasksDTO subtask : task.getSubtasks()) {
+
                 // Recursively calculate the cost of the subtask
                 // by calling the calculateTaskCost method
                 cost += calculateTaskCost(subtask);
