@@ -61,7 +61,7 @@ public class TaskRepository {
                         rs.getString("taskDescription"),
                         rs.getInt("cost"),
                         rs.getInt("totalEstimatedTime"),
-                        null,
+                        getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
                         rs.getDate("deadline_time")
                         ));

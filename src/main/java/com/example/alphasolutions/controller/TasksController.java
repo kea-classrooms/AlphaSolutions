@@ -38,7 +38,7 @@ public class TasksController {
         model.addAttribute("project", project);
 
         // Get the list of tasks from the service
-        List<TasksDTO> tasks = taskService.getTasks(id);
+        List <TasksDTO> tasks = taskService.getTaskWithUpdatedCost(id);
 
         // Add the list of tasks to the model object to be passed to the view
         model.addAttribute("tasks", tasks);
@@ -82,6 +82,7 @@ public class TasksController {
     public String viewTask(Model model, @PathVariable int id){
         // Get the task with the given ID from the service
         TasksDTO task = taskService.getTask(id);
+
 
         // Add the task object to the model object to be passed to the view
         model.addAttribute("task", task);
