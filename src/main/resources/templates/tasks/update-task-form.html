@@ -11,6 +11,10 @@
 <h1>Update Task</h1>
 
 <!-- Create a form for updating the task -->
+<!-- form-group and form-control are a part of the bootstrap CSS framework
+ and are used for styling form elements -->
+
+
 <form method="post" th:action="@{/updateTask/{id}(id=${taskToUpdate.taskID})}" th:object="${taskToUpdate}" class="form">
   <!-- Task Name -->
   <div class="form-group">
