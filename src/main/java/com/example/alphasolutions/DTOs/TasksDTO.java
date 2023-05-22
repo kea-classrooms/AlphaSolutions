@@ -18,7 +18,16 @@ public class TasksDTO {
     private int projectID;
 
     // Constructor to create a new TasksDTO object with the given properties
-    public TasksDTO(int taskID, String taskName, String taskDescription, int cost, int totalEstimatedTime, List<TasksDTO> subtasks, int superTask, Date deadline_time) {
+    public TasksDTO(
+            int taskID,
+            String taskName,
+            String taskDescription,
+            int cost,
+            int totalEstimatedTime,
+            List<TasksDTO> subtasks,
+            int superTask,
+            Date deadline_time
+    ) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.taskDescription = taskDescription;

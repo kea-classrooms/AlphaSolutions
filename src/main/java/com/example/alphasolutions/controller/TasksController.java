@@ -52,8 +52,6 @@ public class TasksController {
     @GetMapping("/viewProject/{id}/addTask")
     public String add(Model model, @PathVariable int id) {
         TasksDTO taskToAdd = new TasksDTO();
-        //The tasks projectID is set here, as we know it has to be linked to the current project
-        taskToAdd.setProjectID(id);
 
         // Add the blank task object and the projectID to the model object to be passed to the view
         model.addAttribute("taskToAdd", taskToAdd);
@@ -71,9 +69,11 @@ public class TasksController {
     // This method maps to the "/viewProject/{id}/addTask" URL and adds a new task to the database
     @PostMapping("/viewProject/{id}/addTask")
     public String addTask(@ModelAttribute("taskForm") TasksDTO tasksDTO, @PathVariable int id) {
+        //The tasks projectID is set here, as we know it has to be linked to the current project
+        tasksDTO.setProjectID(id);
         // Call the service to add the new task to the database
-       taskService.addTask(tasksDTO);
-       //'redirect' specifies that this endpoint should just point to another endpoint, in this case '/'
+        taskService.addTask(tasksDTO);
+        //'redirect' specifies that this endpoint should just point to another endpoint, in this case '/'
         return String.format("redirect:/viewProject/%d", id);
     }
 
