@@ -32,6 +32,9 @@
         <td>
             <!-- Create a link to view task details -->
             <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}"><span th:text="${TasksDTO.getTaskName()}"/></a>
+            <a th:href="@{/updateTask/{id}(id=${TasksDTO.getTaskID()})}">
+                <button>Update</button>
+            </a>
         </td>
         <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>
@@ -40,9 +43,6 @@
             <span th:each="subtask : ${TasksDTO.getSubtasks()}">
                 <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}">
                     <span th:text="${subtask}"/></a>
-                <a th:href="@{/updateTask/{id}(id=${TasksDTO.getTaskID()})}">
-                <button>Update</button>
-            </a>
                 <br>
             </span>
         </td>
