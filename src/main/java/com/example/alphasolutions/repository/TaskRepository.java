@@ -109,4 +109,21 @@ public class TaskRepository {
         }
         return task;
     }
+    public void updateTask(TasksDTO updatedTask) {
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "UPDATE tasks SET taskName = ?, taskDescription = ?, cost = ?, totalEstimatedTime = ?, superTask = ? WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, updatedTask.getTaskName());
+            ps.setString(2, updatedTask.getTaskDescription());
+            ps.setInt(3, updatedTask.getCost());
+            ps.setInt(4, updatedTask.getTotalEstimatedTime());
+            ps.setInt(5, updatedTask.getSuperTask());
+            ps.setInt(6, updatedTask.getTaskID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

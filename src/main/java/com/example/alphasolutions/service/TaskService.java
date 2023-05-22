@@ -35,4 +35,8 @@ public class TaskService {
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.
         return taskRepository.getTask(id);
     }
+    public void updateTask(TasksDTO updatedTask) {
+        // Call the updateTask method of the taskRepository
+        taskRepository.updateTask(updatedTask);
+    }
 }
