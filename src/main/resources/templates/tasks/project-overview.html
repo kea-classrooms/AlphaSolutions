@@ -20,6 +20,7 @@
         <th scope="col">Subtasks</th>
         <th scope="col">Time estimate</th>
         <th scope="col">Cost estimate</th>
+        <th scope="col">Deadline</th>
 
     </tr>
     </thead>
@@ -41,14 +42,13 @@
             <!-- Iterate over subtasks within the task -->
             <!-- Create links to view subtask details -->
             <span th:each="subtask : ${TasksDTO.getSubtasks()}">
-                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}">
-                    <span th:text="${subtask}"/></a> <!-- Display subtask -->
-
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"><span th:text="${subtask}"/></a>
                 <br>
             </span>
         </td>
         <td th:text="${TasksDTO.getTotalEstimatedTime()}"></td> <!-- Display total estimated time -->
         <td th:text="${TasksDTO.getCost()}"></td> <!-- Display cost estimate -->
+        <td th:text="${TasksDTO.getDeadline_time()}"></td>
 
     </tr>
     </tbody>

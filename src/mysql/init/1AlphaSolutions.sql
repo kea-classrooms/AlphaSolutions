@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS alphasolutions DEFAULT CHARACTER SET utf8;
 USE alphasolutions;
-DROP TABLE IF EXISTS names, deadlines, positions, employee,  WorksOn, project, tasks;
+DROP TABLE IF EXISTS names, deadlines, positions, employee,  worksOn, project, tasks;
 
 
 CREATE TABLE names (
@@ -46,7 +46,7 @@ CREATE TABLE worksOn (
 );
 CREATE TABLE deadlines (
     deadline_time DATETIME,
-    taskID INTEGER UNIQUE,
-    PRIMARY KEY (deadline_time, taskID),
+    taskID INTEGER,
+    PRIMARY KEY (taskID),
     FOREIGN KEY (taskID) REFERENCES tasks(taskID) ON DELETE CASCADE
 );
