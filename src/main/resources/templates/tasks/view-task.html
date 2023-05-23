@@ -10,11 +10,19 @@
   </style>
 </head>
 <body>
+<!-- mt-5: The class mt-5 stands for "margin-top 5" and
+ adds a margin of size 5 (defined by the Bootstrap CSS) only to the top of the element -->
 <div class="container mt-5">
+ <!-- my-5: The class my-5 stands for "margin-y 5" and
+  adds a margin of size 5 (defined by the Bootstrap CSS) to both the top and bottom of the element. -->
   <h1 class="my-4" th:text="${task.getTaskName()}"></h1>
+  <!-- p-4 on an element adds 4 units of padding to the top, right, bottom, and left sides. -->
+  <!-- The card class in Bootstrap is used to create a container that visually represents a card-like component. -->
   <div class="card p-4">
     <h5 class="card-title">Task Details</h5>
     <p class="card-text" th:text="${task.getTaskDescription()}"></p>
+    <!-- By applying the list-group class to a container element,
+     such as a <ul> or <div>, you can transform it into a list-group component -->
     <ul class="list-group">
       <li class="list-group-item">Total Estimated Time: <span th:text="${task.getTotalEstimatedTime()}"></span></li>
       <li class="list-group-item">Cost: <span th:text="${task.getCost()}"></span></li>
@@ -27,6 +35,7 @@
     <a th:href="@{/delete/{taskID}(taskID=${task.getTaskID()})}">
       <button class="btn btn-danger mt-3">Delete</button>
     </a>
+
   </div>
 </div>
 </body>
