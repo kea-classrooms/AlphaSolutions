@@ -2,7 +2,6 @@ package com.example.alphasolutions.repository;
 
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -189,6 +188,25 @@ public class TaskRepository {
         }
         return project;
     }
+    // This method updates an existing task in the database with the given properties
+    public void updateTask(TasksDTO updatedTask) {
+        try {
+            Connection con = DatabaseManager.getConnection();
+            // 'WHERE taskID = ?' specifies the condition to identify the specific task to update based on its taskID
+            String query = "UPDATE tasks SET taskName = ?, taskDescription = ?, cost = ?, totalEstimatedTime = ?, superTask = ? WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, updatedTask.getTaskName());
+            ps.setString(2, updatedTask.getTaskDescription());
+            ps.setInt(3, updatedTask.getCost());
+            ps.setInt(4, updatedTask.getTotalEstimatedTime());
+            ps.setInt(5, updatedTask.getSuperTask());
+            ps.setInt(6, updatedTask.getTaskID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     // This method deletes a task with the given ID from the database
     public void deleteTask(int taskID) {
