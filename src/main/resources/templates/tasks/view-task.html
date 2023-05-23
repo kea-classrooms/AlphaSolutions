@@ -4,10 +4,30 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <meta charset="UTF-8">
-  <title>Tasks</title>
+  <title>View Task</title>
+  <style>
+    /* Custom styles can be added here */
+  </style>
 </head>
 <body>
-<h1 th:text="${task.getTaskName()}"/>
-
+<div class="container mt-5">
+  <h1 class="my-4" th:text="${task.getTaskName()}"></h1>
+  <div class="card p-4">
+    <h5 class="card-title">Task Details</h5>
+    <p class="card-text" th:text="${task.getTaskDescription()}"></p>
+    <ul class="list-group">
+      <li class="list-group-item">Total Estimated Time: <span th:text="${task.getTotalEstimatedTime()}"></span></li>
+      <li class="list-group-item">Cost: <span th:text="${task.getCost()}"></span></li>
+      <li class="list-group-item">Deadline: <span th:text="${task.getDeadline_time()}"></span></li>
+    </ul>
+    <!-- Bootstrap class added to buttons for a better visual and margin-top 3 added -->
+    <a th:href="@{/updateTask/{id}(id=${task.getTaskID()})}">
+      <button class="btn btn-primary mt-3">Update</button>
+    </a>
+    <a th:href="@{/delete/{taskID}(taskID=${task.getTaskID()})}">
+      <button class="btn btn-danger mt-3">Delete</button>
+    </a>
+  </div>
+</div>
 </body>
 </html>
