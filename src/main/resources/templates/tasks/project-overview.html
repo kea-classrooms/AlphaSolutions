@@ -16,7 +16,6 @@
         <!-- Table header -->
         <th scope="col">Task #</th>
         <th scope="col">Task title</th>
-        <th scope="col">Task description</th>
         <th scope="col">Subtasks</th>
         <th scope="col">Time estimate</th>
         <th scope="col">Cost estimate</th>
@@ -40,7 +39,6 @@
                 <button>Update</button>
             </a>
         </td>
-        <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>
             <!-- Iterate over subtasks within the task -->
             <!-- Create links to view subtask details -->
