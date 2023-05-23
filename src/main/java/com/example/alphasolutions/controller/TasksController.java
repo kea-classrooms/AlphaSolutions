@@ -3,6 +3,7 @@ package com.example.alphasolutions.controller;
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.service.TaskService;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -90,4 +91,29 @@ public class TasksController {
         // Return the name of the view template to be rendered
         return "tasks/view-task";
     }
+    @GetMapping("/updateTask/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        // Retrieve the task from the database using the id
+        TasksDTO taskToUpdate = taskService.getTask(id);
+
+        // Add the taskToUpdate object to the model
+        model.addAttribute("taskToUpdate", taskToUpdate);
+
+        // Return the view name
+        return "tasks/update-task-form";
+    }
+
+    // This method maps to the "updateTask/{id}" URL and handles the update request
+    @PostMapping("/updateTask/{id}")
+    public String updateTask(@PathVariable int id, @ModelAttribute("taskToUpdate") TasksDTO updatedTask) {
+        // Set the task ID for the updated task
+        updatedTask.setTaskID(id);
+
+        // Call the service to update the task in the database
+        taskService.updateTask(updatedTask);
+
+        // Redirect to the task details page after the update
+        return "redirect:/";
+    }
 }
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Update Task</title>
+</head>
+<body>
+<h1>Update Task</h1>
+
+<!-- Create a form for updating the task -->
+<!-- form-group and form-control are a part of the bootstrap CSS framework
+ and are used for styling form elements -->
+
+
+<form method="post" th:action="@{/updateTask/{id}(id=${taskToUpdate.taskID})}" th:object="${taskToUpdate}" class="form">
+  <!-- Task Name -->
+  <div class="form-group">
+    <label for="taskName">Task Name:</label>
+    <input type="text" id="taskName" th:field="*{taskName}" class="form-control"/>
+  </div>
+
+  <!-- Task Description -->
+  <div class="form-group">
+    <label for="taskDescription">Task Description:</label>
+    <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control"></textarea>
+  </div>
+
+  <!-- Cost -->
+  <div class="form-group">
+    <label for="cost">Cost:</label>
+    <input type="number" id="cost" th:field="*{cost}" class="form-control"/>
+  </div>
+
+  <!-- Total Estimated Time -->
+  <div class="form-group">
+    <label for="totalEstimatedTime">Total Estimated Time:</label>
+    <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control"/>
+  </div>
+
+  <!-- Deadline -->
+  <div class="form-group">
+    <label for="deadline_time">Deadline:</label>
+    <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control"/>
+  </div>
+
+
+  <!-- Super Task -->
+  <div class="form-group">
+    <label for="superTask">Super Task:</label>
+    <input type="number" id="superTask" th:field="*{superTask}" class="form-control"/>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary">Update Task</button>
+</form>
+
+</body>
+</html>
