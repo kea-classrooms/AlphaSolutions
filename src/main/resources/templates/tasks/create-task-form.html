@@ -11,22 +11,34 @@
 <h1>Add Task</h1>
 <!-- Create a form to add a new task -->
 <!-- Here we define a form element with the attributes for HTTP method and Thymeleaf object -->
-<form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}">
+<form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}" >
     <!-- Here we create a label element with text "Task Name:" -->
-    <label for="taskName">Task Name:</label>
-    <input type="text" id="taskName" th:field="*{taskName}" required><br>
+    <div class="form-group">
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" th:field="*{taskName}" class="form-control" required>
+    </div>
 
-    <label for="taskDescription">Task Description:</label>
-    <textarea id="taskDescription" th:field="*{taskDescription}" ></textarea><br>
 
-    <label for="totalEstimatedTime">Total Estimated Time:</label>
-    <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" required><br>
+    <div class="form-group">
+        <label for="taskDescription">Task Description:</label>
+        <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control" ></textarea>
+    </div>
 
-    <label for="cost">Cost:</label>
-    <input type="number" id="cost" th:field="*{cost}" required><br>
+    <div class="form-group">
+        <label for="totalEstimatedTime">Total Estimated Time:</label>
+        <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control">
+    </div>
 
-    <label for="deadline_time">Deadline:</label>
-    <input type="date" id="deadline_time" th:field="*{deadline_time}" required><br>
+    <div class="form-group">
+        <label for="cost">Cost:</label>
+        <input type="number" id="cost" th:field="*{cost}" class="form-control" >
+    </div>
+
+    <div class="form-group">
+        <label for="deadline_time">Deadline:</label>
+        <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control" >
+
+    </div>
 
     <label for="superTask">Choose supertask:</label>
     <!-- Select a supertask from a list -->
