@@ -11,7 +11,7 @@
 <h1>Add Task</h1>
 <!-- Create a form to add a new task -->
 <!-- Here we define a form element with the attributes for HTTP method and Thymeleaf object -->
-<form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}" >
+<form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}">
     <!-- Here we create a label element with text "Task Name:" -->
     <div class="form-group">
         <label for="taskName">Task Name:</label>
