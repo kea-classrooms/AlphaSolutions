@@ -207,4 +207,17 @@ public class TaskRepository {
         }
     }
 
+
+    // This method deletes a task with the given ID from the database
+    public void deleteTask(int taskID) {
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "DELETE FROM tasks WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, taskID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

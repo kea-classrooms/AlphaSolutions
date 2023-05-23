@@ -46,6 +46,9 @@ public class TaskService {
     public ProjectDTO getProject(int id) {
         return taskRepository.getProject(id);
     }
+    public void deleteTask(int taskID) {
+        taskRepository.deleteTask(taskID);
+    }
 
     public List<TasksDTO> getTaskWithUpdatedCost(int id){
         // Gets the lists of task
