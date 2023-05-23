@@ -25,7 +25,6 @@ public class TasksController {
 
     // This method maps to the root URL of the web application and sends the list of projects to the view
     @GetMapping("/projects")
-    @PreAuthorize("hasRole('ADMIN')")
     public String projectsOverview(Model model) {
         // Get the list of projects from the service
         List<ProjectDTO> projects = taskService.getAllProjects();
