@@ -3,7 +3,7 @@ package com.example.alphasolutions.controller;
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.service.TaskService;
-import org.springframework.scheduling.config.Task;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,15 @@ public class TasksController {
         this.taskService = taskService;
     }
 
-    // This method maps to the root URL of the web application and sends the list of projects to the view
     @GetMapping("/")
-    public String index(Model model) {
+    public String home(){
+        return "welcome";
+    }
+
+    // This method maps to the root URL of the web application and sends the list of projects to the view
+    @GetMapping("/projects")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String projectsOverview(Model model) {
         // Get the list of projects from the service
         List<ProjectDTO> projects = taskService.getAllProjects();
 
@@ -28,7 +34,7 @@ public class TasksController {
         model.addAttribute("projects", projects);
 
         // Return the name of the overview template to be rendered
-        return "index";
+        return "tasks/projects-overview";
     }
 
     // This method maps to the "viewProject" URL of the web application and sends the list of tasks in the project to the view
@@ -45,7 +51,7 @@ public class TasksController {
         model.addAttribute("tasks", tasks);
 
         // Return the name of the overview template to be rendered
-        return "tasks/project-overview";
+        return "tasks/view-project";
     }
 
     // This method maps to the "/viewProject/{id}/addTask" URL and sends a blank task object to the view

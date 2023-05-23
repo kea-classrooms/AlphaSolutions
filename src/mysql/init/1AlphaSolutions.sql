@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS alphasolutions DEFAULT CHARACTER SET utf8;
 USE alphasolutions;
-DROP TABLE IF EXISTS names, deadlines, positions, employee,  worksOn, project, tasks, clearance;
+DROP TABLE IF EXISTS names, deadlines, positions, employee,  worksOn, project, tasks, role;
 
 
 CREATE TABLE names (
@@ -8,24 +8,26 @@ CREATE TABLE names (
     nameID INT PRIMARY KEY auto_increment
     );
 
-CREATE TABLE clearance(
-    clearanceID INTEGER PRIMARY KEY,
-    clearanceName VARCHAR(255)
+CREATE TABLE role(
+    roleID INTEGER PRIMARY KEY,
+    role VARCHAR(255)
 );
 
 CREATE TABLE positions (
     posID INTEGER PRIMARY KEY,
     posName VARCHAR(255),
-    clearanceLevel INTEGER,
-    FOREIGN KEY (clearanceLevel) REFERENCES clearance(clearanceID)
+    roleID INTEGER,
+    FOREIGN KEY (roleID) REFERENCES role(roleID)
 );
 
 
 CREATE TABLE employee (
     empID INTEGER AUTO_INCREMENT PRIMARY KEY,
-    empName VARCHAR (255),
-    position INTEGER,
-    FOREIGN KEY (position) REFERENCES positions(posID)
+    username VARCHAR (255),
+    password VARCHAR (255),
+    enabled BIT DEFAULT 1,
+    posID INTEGER,
+    FOREIGN KEY (posID) REFERENCES positions(posID)
   );
 
 CREATE TABLE project (
