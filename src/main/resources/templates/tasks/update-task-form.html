@@ -16,42 +16,57 @@
 
 
 <form method="post" th:action="@{/updateTask/{id}(id=${taskToUpdate.taskID})}" th:object="${taskToUpdate}" class="form">
-  <!-- Task Name -->
-  <div class="form-group">
-    <label for="taskName">Task Name:</label>
-    <input type="text" id="taskName" th:field="*{taskName}" class="form-control"/>
-  </div>
 
-  <!-- Task Description -->
-  <div class="form-group">
-    <label for="taskDescription">Task Description:</label>
-    <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control"></textarea>
-  </div>
+    <!-- Task Name -->
+  <!-- col-sm-6 removes 6 of the columns out of the 12-column grid system. -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" th:field="*{taskName}" class="form-control"/>
+      </div>
+    </div>
 
-  <!-- Cost -->
-  <div class="form-group">
-    <label for="cost">Cost:</label>
-    <input type="number" id="cost" th:field="*{cost}" class="form-control"/>
-  </div>
-
-  <!-- Total Estimated Time -->
-  <div class="form-group">
-    <label for="totalEstimatedTime">Total Estimated Time:</label>
-    <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control"/>
-  </div>
-
-  <!-- Deadline -->
-  <div class="form-group">
-    <label for="deadline_time">Deadline:</label>
-    <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control"/>
-  </div>
+    <!-- Task Description -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="taskDescription">Task Description:</label>
+        <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control"></textarea>
+      </div>
+    </div>
 
 
-  <!-- Super Task -->
-  <div class="form-group">
-    <label for="superTask">Super Task:</label>
-    <input type="number" id="superTask" th:field="*{superTask}" class="form-control"/>
-  </div>
+    <!-- Cost -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="cost">Cost:</label>
+        <input type="number" id="cost" th:field="*{cost}" class="form-control"/>
+      </div>
+    </div>
+
+    <!-- Total Estimated Time -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="totalEstimatedTime">Total Estimated Time:</label>
+        <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control"/>
+      </div>
+    </div>
+
+
+    <!-- Deadline -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="deadline_time">Deadline:</label>
+        <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control"/>
+      </div>
+    </div>
+
+    <!-- Super Task -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="superTask">Super Task:</label>
+        <input type="number" id="superTask" th:field="*{superTask}" class="form-control"/>
+      </div>
+    </div>
 
   <!-- Submit Button -->
   <button type="submit" class="btn btn-primary">Update Task</button>
