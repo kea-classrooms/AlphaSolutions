@@ -104,27 +104,18 @@ public class TaskRepository {
             int taskID = taskToAdd.getSuperTask() != 0 ? taskToAdd.getSuperTask() : taskToAdd.getTaskID();
 
             //Check if taskID is already present in deadlines schema
-            String query = "SELECT * FROM deadlines WHERE taskID = ?";
-            PreparedStatement ps = con.prepareStatement(query);
+            String getDeadlineQuery = "SELECT * FROM deadlines WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(getDeadlineQuery);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                //Update the value deadline_time on the row where taskID = taskToAdd's deadline_time
-                String updateDeadlineQuery = "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?";
-                ps = con.prepareStatement(updateDeadlineQuery);
-                ps.setDate(1, taskToAdd.getDeadline_time());
-                //Use new taskID variable, so we make sure to update the correct row
-                ps.setInt(2, taskID);
-                ps.executeUpdate();
-            }else{
-                //Make a new row in deadlines table
-                String addDeadlineQuery = "INSERT INTO deadlines(deadline_time, taskID) VALUES (?, ?)";
-                ps = con.prepareStatement(addDeadlineQuery);
-                ps.setDate(1, taskToAdd.getDeadline_time());
-                //Use new taskID variable, so we make sure to insert the correct row
-                ps.setInt(2, taskID);
-                ps.executeUpdate();
-            }
+
+            //Find out whether deadline should be updated or inserted
+            String insertDeadlineQuery = rs.next() ? "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?" : "INSERT INTO deadlines(deadline_time, taskID) VALUES (?, ?)";
+            ps = con.prepareStatement(insertDeadlineQuery);
+            ps.setDate(1, taskToAdd.getDeadline_time());
+            //Use new taskID variable, so we make sure to update the correct row
+            ps.setInt(2, taskID);
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
