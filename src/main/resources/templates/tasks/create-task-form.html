@@ -13,31 +13,39 @@
 <!-- Here we define a form element with the attributes for HTTP method and Thymeleaf object -->
 <form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}">
     <!-- Here we create a label element with text "Task Name:" -->
+    <div class="col-sm-4">
     <div class="form-group">
         <label for="taskName">Task Name:</label>
         <input type="text" id="taskName" th:field="*{taskName}" class="form-control" required>
     </div>
+    </div>
 
-
+    <div class="col-sm-4">
     <div class="form-group">
         <label for="taskDescription">Task Description:</label>
         <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control" ></textarea>
     </div>
+    </div>
 
+    <div class="col-sm-2">
     <div class="form-group">
         <label for="totalEstimatedTime">Total Estimated Time:</label>
         <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control">
     </div>
+    </div>
 
+    <div class="col-sm-2">
     <div class="form-group">
         <label for="cost">Cost:</label>
         <input type="number" id="cost" th:field="*{cost}" class="form-control" >
     </div>
+    </div>
 
+    <div class="col-sm-1">
     <div class="form-group">
         <label for="deadline_time">Deadline:</label>
         <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control" >
-
+    </div>
     </div>
 
     <label for="superTask">Choose supertask:</label>

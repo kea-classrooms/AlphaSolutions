@@ -19,7 +19,7 @@
 
     <!-- Task Name -->
   <!-- col-sm-6 removes 6 of the columns out of the 12-column grid system. -->
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <div class="form-group">
         <label for="taskName">Task Name:</label>
         <input type="text" id="taskName" th:field="*{taskName}" class="form-control"/>
@@ -27,46 +27,47 @@
     </div>
 
     <!-- Task Description -->
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <div class="form-group">
         <label for="taskDescription">Task Description:</label>
         <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control"></textarea>
       </div>
     </div>
 
+    <!-- Total Estimated Time -->
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="totalEstimatedTime">Total Estimated Time:</label>
+            <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control"/>
+        </div>
+    </div>
 
     <!-- Cost -->
-    <div class="col-sm-6">
+    <div class="col-sm-2">
       <div class="form-group">
         <label for="cost">Cost:</label>
         <input type="number" id="cost" th:field="*{cost}" class="form-control"/>
       </div>
     </div>
 
-    <!-- Total Estimated Time -->
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="totalEstimatedTime">Total Estimated Time:</label>
-        <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control"/>
-      </div>
-    </div>
-
 
     <!-- Deadline -->
-    <div class="col-sm-6">
+    <div class="col-sm-1">
       <div class="form-group">
         <label for="deadline_time">Deadline:</label>
         <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control"/>
       </div>
     </div>
 
-    <!-- Super Task -->
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="superTask">Super Task:</label>
-        <input type="number" id="superTask" th:field="*{superTask}" class="form-control"/>
-      </div>
-    </div>
+    <label for="superTask">Choose supertask:</label>
+    <!-- Select a supertask from a list -->
+    <select th:field="*{superTask}">
+        <!-- Add an option to not have a supertask -->
+        <option th:value="0" th:text="'No supertask'" />
+        <!-- Here we create an option element for each task in the list of all tasks, with the value of the task ID and text of the task name -->
+        <option id="superTask" th:each="task : ${allTasks}" th:value="${task.taskID}" th:text="${task}"/>
+    </select>
+    <br>
 
   <!-- Submit Button -->
   <button type="submit" class="btn btn-primary">Update Task</button>
