@@ -47,13 +47,13 @@ public class TaskRepository {
     // This method retrieves all subtasks of a given task ID from the database and returns them as a list of TasksDTO objects
     private List<TasksDTO> getSubtasks(int taskID) {
         List<TasksDTO> subtasks = new ArrayList<>();
-        try{
+        try {
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks LEFT JOIN deadlines USING(taskID) WHERE superTask = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 // Create a new TasksDTO object for each subtask and add it to the subtasks list
                 subtasks.add(new TasksDTO(
                         rs.getInt("taskID"),
@@ -64,7 +64,7 @@ public class TaskRepository {
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
                         rs.getDate("deadline_time")
-                        ));
+                ));
                 // Subtasks don't have their own subtasks, so set this field to null
 
             }
@@ -97,7 +97,7 @@ public class TaskRepository {
     }
 
     private void setDate(TasksDTO taskToAdd) {
-        try{
+        try {
             //Get connection
             Connection con = DatabaseManager.getConnection();
             //Check whether this task is has a supertask, if so, our taskID should be the supertask's
@@ -108,7 +108,7 @@ public class TaskRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 //Update the value deadline_time on the row where taskID = taskToAdd's deadline_time
                 String updateDeadlineQuery = "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?";
                 ps = con.prepareStatement(updateDeadlineQuery);
@@ -116,7 +116,7 @@ public class TaskRepository {
                 //Use new taskID variable, so we make sure to update the correct row
                 ps.setInt(2, taskID);
                 ps.executeUpdate();
-            }else{
+            } else {
                 //Make a new row in deadlines table
                 String addDeadlineQuery = "INSERT INTO deadlines(deadline_time, taskID) VALUES (?, ?)";
                 ps = con.prepareStatement(addDeadlineQuery);
@@ -133,13 +133,13 @@ public class TaskRepository {
     // This method retrieves a task with the given ID from the database and returns it as a TasksDTO object
     public TasksDTO getTask(int id) {
         TasksDTO task = null;
-        try{
+        try {
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks LEFT JOIN deadlines USING(taskID) WHERE taskID = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 task = new TasksDTO(
                         rs.getInt("taskID"),
                         rs.getString("taskName"),
@@ -163,7 +163,7 @@ public class TaskRepository {
             String query = "SELECT * FROM project";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 projects.add(new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID")));
             }
         } catch (SQLException e) {
@@ -180,7 +180,7 @@ public class TaskRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 project = new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID"));
             }
         } catch (SQLException e) {
@@ -188,6 +188,7 @@ public class TaskRepository {
         }
         return project;
     }
+
     // This method updates an existing task in the database with the given properties
     public void updateTask(TasksDTO updatedTask) {
         try {
@@ -201,6 +202,29 @@ public class TaskRepository {
             ps.setInt(4, updatedTask.getTotalEstimatedTime());
             ps.setInt(5, updatedTask.getSuperTask());
             ps.setInt(6, updatedTask.getTaskID());
+            ps.executeUpdate();
+            updateDeadline(updatedTask); // Update the deadline for the task
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateDeadline(TasksDTO taskToUpdate) {
+        try {
+            Connection con = DatabaseManager.getConnection();
+            int taskID = taskToUpdate.getTaskID();
+
+            // SQL query to update the deadline_time for a task with a specific taskID
+            String updateDeadlineQuery = "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(updateDeadlineQuery);
+
+            // Set the new deadline_time value
+            ps.setDate(1, taskToUpdate.getDeadline_time());
+
+            // Specify the task ID to update
+            ps.setInt(2, taskID);
+
+            // Execute the update query
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

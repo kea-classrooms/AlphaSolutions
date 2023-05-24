@@ -3,6 +3,7 @@ package com.example.alphasolutions.controller;
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.service.TaskService;
+import org.springframework.scheduling.config.Task;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -97,6 +98,7 @@ public class TasksController {
         // Add the task object to the model object to be passed to the view
         model.addAttribute("task", task);
 
+
         // Return the name of the view template to be rendered
         return "tasks/view-task";
     }
@@ -108,6 +110,10 @@ public class TasksController {
         // Add the taskToUpdate object to the model
         model.addAttribute("taskToUpdate", taskToUpdate);
 
+        // Retrieve the list of all tasks and add it to the model
+        List<TasksDTO> allTasks = taskService.getTasks(id);
+        model.addAttribute("allTasks", allTasks);
+
         // Return the view name
         return "tasks/update-task-form";
     }
@@ -117,6 +123,7 @@ public class TasksController {
     public String updateTask(@PathVariable int id, @ModelAttribute("taskToUpdate") TasksDTO updatedTask) {
         // Set the task ID for the updated task
         updatedTask.setTaskID(id);
+
 
         // Call the service to update the task in the database
         taskService.updateTask(updatedTask);
