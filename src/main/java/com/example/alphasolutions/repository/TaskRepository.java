@@ -8,8 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.swing.UIManager.*;
-
 @Repository("AlphaSolutions")
 public class TaskRepository {
     public List<TasksDTO> getTasks(int id) {
@@ -34,7 +32,7 @@ public class TaskRepository {
 
                 Date deadline_time = rs.getDate("deadline_time");
                 // Create a new TasksDTO object and add it to the tasks list
-                tasks.add(new TasksDTO(taskID, taskName, taskDescription, cost, totalEstimatedTime, subtasks, superTask, deadline_time));
+                tasks.add(new TasksDTO(taskID, taskName, taskDescription, cost, totalEstimatedTime, subtasks, superTask, rs.getInt("project_ID"), deadline_time));
             }
         } catch (SQLException e) {
             // If an SQL exception occurs, wrap it in a RuntimeException and rethrow it
@@ -63,7 +61,7 @@ public class TaskRepository {
                         rs.getInt("totalEstimatedTime"),
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
-                        rs.getDate("deadline_time")
+                        rs.getInt("project_ID"), rs.getDate("deadline_time")
                 ));
                 // Subtasks don't have their own subtasks, so set this field to null
 
@@ -148,6 +146,7 @@ public class TaskRepository {
                         rs.getInt("totalEstimatedTime"),
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
+                        rs.getInt("project_ID"),
                         rs.getDate("deadline_time")); // pass the task ID to the getSubtasks method
             }
         } catch (SQLException e) {
@@ -203,34 +202,11 @@ public class TaskRepository {
             ps.setInt(5, updatedTask.getSuperTask());
             ps.setInt(6, updatedTask.getTaskID());
             ps.executeUpdate();
-            updateDeadline(updatedTask); // Update the deadline for the task
+            setDate(updatedTask); // Update the deadline for the task
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    private void updateDeadline(TasksDTO taskToUpdate) {
-        try {
-            Connection con = DatabaseManager.getConnection();
-            int taskID = taskToUpdate.getTaskID();
-
-            // SQL query to update the deadline_time for a task with a specific taskID
-            String updateDeadlineQuery = "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?";
-            PreparedStatement ps = con.prepareStatement(updateDeadlineQuery);
-
-            // Set the new deadline_time value
-            ps.setDate(1, taskToUpdate.getDeadline_time());
-
-            // Specify the task ID to update
-            ps.setInt(2, taskID);
-
-            // Execute the update query
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
     // This method deletes a task with the given ID from the database
     public void deleteTask(int taskID) {
