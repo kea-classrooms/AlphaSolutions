@@ -30,14 +30,14 @@
         <td th:text="${TasksDTO.getTaskID()}"/>
         <td>
             <!-- Create a link to view task details -->
-            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}">
+            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}" class="list-group-item list-group-item-action">
                 <span th:text="${TasksDTO.getTaskName()}"/></a>
         </td>
         <td>
             <!-- Iterate over subtasks within the task -->
             <!-- Create links to view subtask details -->
             <span th:each="subtask : ${TasksDTO.getSubtasks()}">
-                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}">
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"class="list-group-item list-group-item-action">
                     <span th:text="${subtask}"/></a>
                 <br>
             </span>
