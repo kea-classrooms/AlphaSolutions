@@ -27,4 +27,12 @@ public class DatabaseManagerTest {
         assertNotNull(connection);
         assertTrue(connection.isValid(5));
     }
+
+    @Test
+    public void testGetConnectionThrows(){
+        databaseManager.setPassword("invalid");
+        assertThrows(RuntimeException.class, () -> {
+            Connection con = databaseManager.getConnection();
+        });
+    }
 }
