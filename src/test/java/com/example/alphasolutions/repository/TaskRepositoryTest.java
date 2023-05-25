@@ -107,7 +107,7 @@ public class TaskRepositoryTest {
         int numberOfSubtasks = taskRepository.getTask(taskId).getSubtasks().size();
         taskRepository.deleteTask(taskId);
         //Test that tasks shrunk by the number of subtasks + 1 as subtasks should be deleted when supertask is deleted
-//        assertEquals(tasksInitSize - 1 - numberOfSubtasks, taskRepository.getTasks(testProjectDef).size());
+        assertEquals(tasksInitSize - 1 - numberOfSubtasks, taskRepository.getTasks(testProjectDef).size());
     }
 
 }
