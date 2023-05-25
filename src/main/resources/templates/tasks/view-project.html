@@ -7,6 +7,13 @@
     <meta charset="UTF-8">
     <title>Tasks</title>
 </head>
+<!-- TEMPORARY! will be moved to css file. -->
+<style>
+    .link-style {
+        color: black; /* Set the color of the link */
+        text-decoration: underline; /* Add underline to the link */
+    }
+</style>
 <body>
 <h1 th:text="${project.getProjectName()}" />
 <!-- Create a table to display task information -->
@@ -30,7 +37,7 @@
         <td th:text="${TasksDTO.getTaskID()}"/>
         <td>
             <!-- Create a link to view task details -->
-            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}" class="list-group-item list-group-item-action">
+            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}" class="list-group-item list-group-item-action link-style">
                 <span th:text="${TasksDTO.getTaskName()}"/></a>
         </td>
         <td>

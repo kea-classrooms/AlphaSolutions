@@ -1,12 +1,7 @@
 CREATE DATABASE IF NOT EXISTS alphasolutions DEFAULT CHARACTER SET utf8;
 USE alphasolutions;
-DROP TABLE IF EXISTS names, deadlines, positions, employee,  worksOn, project, tasks, role;
+DROP TABLE IF EXISTS deadlines, positions, employee,  worksOn, project, tasks, role;
 
-
-CREATE TABLE names (
-	nameString VARCHAR (255),
-    nameID INT PRIMARY KEY auto_increment
-    );
 
 CREATE TABLE role(
     roleID INTEGER PRIMARY KEY,
