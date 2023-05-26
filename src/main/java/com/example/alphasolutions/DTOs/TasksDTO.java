@@ -15,6 +15,7 @@ public class TasksDTO {
     private int superTask;
     private Date deadline_time;
     private int projectID;
+    private String projectName;
 
     // Constructor to create a new TasksDTO object with the given properties
     public TasksDTO(
@@ -26,6 +27,7 @@ public class TasksDTO {
             List<TasksDTO> subtasks,
             int superTask,
             int projectID,
+            String projectName,
             Date deadline_time
     ) {
         this.taskID = taskID;
@@ -37,10 +39,18 @@ public class TasksDTO {
         this.superTask = superTask;
         this.deadline_time = deadline_time;
         this.projectID = projectID;
+        this.projectName = projectName;
     }
 
     // Empty constructor for TasksDTO object
     public TasksDTO() {
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     // Getter and setter methods for the task object properties

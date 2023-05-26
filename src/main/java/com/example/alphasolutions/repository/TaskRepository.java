@@ -31,6 +31,7 @@ public class TaskRepository {
                 List<TasksDTO> subtasks = getSubtasks(rs.getInt("taskID"));
 
                 Date deadline_time = rs.getDate("deadline_time");
+                String projectName = rs.getString("projectName");
                 // Create a new TasksDTO object and add it to the tasks list
                 tasks.add(
                         new TasksDTO(
@@ -42,7 +43,9 @@ public class TaskRepository {
                                 subtasks,
                                 superTask,
                                 rs.getInt("project_ID"),
+                                projectName,
                                 deadline_time
+
                         )
                 );
             }
@@ -74,7 +77,9 @@ public class TaskRepository {
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
                         rs.getInt("project_ID"),
+                        rs.getString("projectName"),
                         rs.getDate("deadline_time")
+
                 ));
                 // Subtasks don't have their own subtasks, so set this field to null
 
@@ -151,6 +156,7 @@ public class TaskRepository {
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
                         rs.getInt("project_ID"),
+                        rs.getString("projectName"),
                         rs.getDate("deadline_time")); // pass the task ID to the getSubtasks method
             }
         } catch (SQLException e) {
