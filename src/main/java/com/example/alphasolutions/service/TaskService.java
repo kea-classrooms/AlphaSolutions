@@ -5,7 +5,6 @@ import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -50,22 +49,25 @@ public class TaskService {
         taskRepository.deleteTask(taskID);
     }
 
-    public List<TasksDTO> getTaskWithUpdatedCost(int id){
+    public List<TasksDTO> getTaskWithUpdatedCostAndTime(int id){
         // Gets the lists of task
         List<TasksDTO> tasks = getTasks(id);
         // Repeats with each task in the list
         for (TasksDTO task : tasks) {
             // Calculates the cost of the tasks
-            int cost = calculateTaskCost(task);
+            int cost = calculatedAttributeSum(task, "cost");
             // Updates the task's cost
             task.setCost(cost);
+            int time = calculatedAttributeSum(task, "time");
+            // Updates the task's cost
+            task.setTotalEstimatedTime(time);
         }
         // Returns the updated list of tasks
         return tasks;
     }
-    private int calculateTaskCost(TasksDTO task) {
+    private int calculatedAttributeSum(TasksDTO task, String attribute) {
         // Get the initial cost of the task
-        int cost = task.getCost();
+        int attributeSum = attribute.equals("cost") ? task.getCost() : task.getTotalEstimatedTime();
 
         // Check if the task has any subtasks
         if (task.getSubtasks() != null) {
@@ -74,12 +76,12 @@ public class TaskService {
 
                 // Recursively calculate the cost of the subtask
                 // by calling the calculateTaskCost method
-                cost += calculateTaskCost(subtask);
+                attributeSum += calculatedAttributeSum(subtask, attribute);
             }
         }
 
         // Return the total cost of the task (including the subtasks)
-        return cost;
+        return attributeSum;
     }
 
 
