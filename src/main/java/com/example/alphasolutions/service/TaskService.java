@@ -5,10 +5,12 @@ import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
@@ -59,7 +61,7 @@ public class TaskService {
             // Updates the task's cost
             task.setCost(cost);
             int time = calculatedAttributeSum(task, "time");
-            // Updates the task's cost
+            // Updates the task's time
             task.setTotalEstimatedTime(time);
         }
         // Returns the updated list of tasks
@@ -89,5 +91,13 @@ public class TaskService {
         // Call the updateTask method of the taskRepository
         taskRepository.updateTask(updatedTask);
     }
+
+    /*
+    public void resetDatabase() throws FileNotFoundException {
+        taskRepository.resetDatabase(true);
+    }
+
+     */
+
 
 }
