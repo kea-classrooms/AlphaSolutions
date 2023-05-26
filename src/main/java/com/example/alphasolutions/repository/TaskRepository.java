@@ -32,7 +32,19 @@ public class TaskRepository {
 
                 Date deadline_time = rs.getDate("deadline_time");
                 // Create a new TasksDTO object and add it to the tasks list
-                tasks.add(new TasksDTO(taskID, taskName, taskDescription, cost, totalEstimatedTime, subtasks, superTask, rs.getInt("project_ID"), deadline_time));
+                tasks.add(
+                        new TasksDTO(
+                                taskID,
+                                taskName,
+                                taskDescription,
+                                cost,
+                                totalEstimatedTime,
+                                subtasks,
+                                superTask,
+                                rs.getInt("project_ID"),
+                                deadline_time
+                        )
+                );
             }
         } catch (SQLException e) {
             // If an SQL exception occurs, wrap it in a RuntimeException and rethrow it
@@ -61,7 +73,8 @@ public class TaskRepository {
                         rs.getInt("totalEstimatedTime"),
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
-                        rs.getInt("project_ID"), rs.getDate("deadline_time")
+                        rs.getInt("project_ID"),
+                        rs.getDate("deadline_time")
                 ));
                 // Subtasks don't have their own subtasks, so set this field to null
 
@@ -163,7 +176,10 @@ public class TaskRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                projects.add(new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID")));
+                projects.add(new ProjectDTO(
+                        rs.getInt("projectID"),
+                        rs.getString("projectName"),
+                        rs.getInt("managerEmployee_ID")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -180,7 +196,10 @@ public class TaskRepository {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                project = new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID"));
+                project = new ProjectDTO(
+                        rs.getInt("projectID"),
+                        rs.getString("projectName"),
+                        rs.getInt("managerEmployee_ID"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,7 +1,6 @@
 use alphasolutions;
 INSERT INTO project(projectName) VALUES ('Alpha solutions project');
 INSERT INTO project(projectName) VALUES ('Consultation project');
-INSERT INTO names (nameString) VALUE('Carl Harlang');
 INSERT INTO role(roleID,role) VALUE (1,'ROLE_ADMIN');
 INSERT INTO role(roleID,role) VALUE (2,'ROLE_USER');
 INSERT INTO positions(posID,posName,roleID) VALUE (1,'manager', 1);

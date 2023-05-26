@@ -3,8 +3,6 @@ package com.example.alphasolutions.controller;
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.service.TaskService;
-import org.springframework.scheduling.config.Task;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
