@@ -4,12 +4,15 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/logo.css">
     <meta charset="UTF-8">
     <title>Welcome</title>
 </head>
 <body>
-<h1>Alpha Solutions Project Management Tool</h1>
-<div th:if="${auth.name.equals('anonymousUser')}">
+    <img src="/static/logo.svg.svg" alt="Alpha Solutions Logo"/>
+    <h1>Alpha Solutions Project Management Tool</h1>
+    <div th:if="${auth.name.equals('anonymousUser')}">
+
     <a href="/login"><button type="button" class="btn btn-dark">Log in</button></a>
 </div>
 <div th:unless="${auth.name.equals('anonymousUser')}">
