@@ -13,31 +13,39 @@
 <!-- Here we define a form element with the attributes for HTTP method and Thymeleaf object -->
 <form action="#" th:action="@{/viewProject/{projectID}/addTask (projectID = ${projectID})}" method="POST" th:object="${taskToAdd}">
     <!-- Here we create a label element with text "Task Name:" -->
+    <div class="col-sm-4">
     <div class="form-group">
         <label for="taskName">Task Name:</label>
         <input type="text" id="taskName" th:field="*{taskName}" class="form-control" required>
     </div>
+    </div>
 
-
+    <div class="col-sm-4">
     <div class="form-group">
         <label for="taskDescription">Task Description:</label>
         <textarea id="taskDescription" th:field="*{taskDescription}" class="form-control" ></textarea>
     </div>
+    </div>
 
+    <div class="col-sm-2">
     <div class="form-group">
-        <label for="totalEstimatedTime">Total Estimated Time:</label>
+        <label for="totalEstimatedTime">Total Estimated Time(hours):</label>
         <input type="number" id="totalEstimatedTime" th:field="*{totalEstimatedTime}" class="form-control">
     </div>
-
-    <div class="form-group">
-        <label for="cost">Cost:</label>
-        <input type="number" id="cost" th:field="*{cost}" class="form-control" >
     </div>
 
+    <div class="col-sm-2">
+    <div class="form-group">
+        <label for="cost">Cost(DKK):</label>
+        <input type="number" id="cost" th:field="*{cost}" class="form-control" >
+    </div>
+    </div>
+
+    <div class="col-sm-1">
     <div class="form-group">
         <label for="deadline_time">Deadline:</label>
         <input type="date" id="deadline_time" th:field="*{deadline_time}" class="form-control" >
-
+    </div>
     </div>
 
     <label for="superTask">Choose supertask:</label>
@@ -46,11 +54,11 @@
         <!-- Add an option to not have a supertask -->
         <option th:value="0" th:text="'No supertask'" />
         <!-- Here we create an option element for each task in the list of all tasks, with the value of the task ID and text of the task name -->
-        <option id="superTask" th:each="task : ${allTasks}" th:value="${task.taskID}" th:text="${task}"/>
+        <option th:if="${task.superTask == 0}" id="superTask" th:each="task : ${allTasks}" th:value="${task.taskID}" th:text="${task}"/>
     </select>
 
     <br>
-    <button type="submit">Add Task</button>
+    <button type="submit" class="btn btn-primary">Add Task</button>
 </form>
 </body>
 </html>

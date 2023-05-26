@@ -7,6 +7,13 @@
     <meta charset="UTF-8">
     <title>Tasks</title>
 </head>
+<!-- TEMPORARY! will be moved to css file. -->
+<style>
+    .link-style {
+        color: black; /* Set the color of the link */
+        text-decoration: underline; /* Add underline to the link */
+    }
+</style>
 <body>
 <h1 th:text="${project.getProjectName()}" />
 <!-- Create a table to display task information -->
@@ -16,10 +23,9 @@
         <!-- Table header -->
         <th scope="col">Task #</th>
         <th scope="col">Task title</th>
-        <th scope="col">Task description</th>
         <th scope="col">Subtasks</th>
-        <th scope="col">Time estimate</th>
-        <th scope="col">Cost estimate</th>
+        <th scope="col">Time estimate(hours)</th>
+        <th scope="col">Cost estimate(DKK)</th>
         <th scope="col">Deadline</th>
 
     </tr>
@@ -31,21 +37,14 @@
         <td th:text="${TasksDTO.getTaskID()}"/>
         <td>
             <!-- Create a link to view task details -->
-            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}">
+            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}" class="list-group-item list-group-item-action link-style">
                 <span th:text="${TasksDTO.getTaskName()}"/></a>
-            <a th:href="@{/delete/{taskID}(taskID=${TasksDTO.getTaskID()})}">
-                <button>Delete</button>
-            </a>
-            <a th:href="@{/updateTask/{id}(id=${TasksDTO.getTaskID()})}">
-                <button>Update</button>
-            </a>
         </td>
-        <td th:text="${TasksDTO.getTaskDescription()}"></td>
         <td>
             <!-- Iterate over subtasks within the task -->
             <!-- Create links to view subtask details -->
             <span th:each="subtask : ${TasksDTO.getSubtasks()}">
-                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}">
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"class="list-group-item list-group-item-action">
                     <span th:text="${subtask}"/></a>
                 <br>
             </span>
@@ -58,8 +57,8 @@
     </tbody>
 </table>
 <!-- Create a button to add a new task -->
-<a th:href="@{/viewProject/{id}/addTask (id = ${project.projectID})}"><button>Create task!</button></a>
+<a th:href="@{/viewProject/{id}/addTask (id = ${project.projectID})}"><button type="button" class="btn btn-dark">Create task!</button></a>
 <!-- Create a button to go back to frontpage -->
-<a th:href="@{/}"><button>Back</button></a>
+<a th:href="@{/projects}"><button type="button" class="btn btn-dark">Back</button></a>
 </body>
 </html>
