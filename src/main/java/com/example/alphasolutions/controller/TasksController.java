@@ -3,7 +3,6 @@ package com.example.alphasolutions.controller;
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
 import com.example.alphasolutions.service.TaskService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -97,6 +96,7 @@ public class TasksController {
         // Add the task object to the model object to be passed to the view
         model.addAttribute("task", task);
 
+
         // Return the name of the view template to be rendered
         return "tasks/view-task";
     }
@@ -108,6 +108,10 @@ public class TasksController {
         // Add the taskToUpdate object to the model
         model.addAttribute("taskToUpdate", taskToUpdate);
 
+        // Retrieve the list of all tasks and add it to the model
+        List<TasksDTO> allTasks = taskService.getTasks(taskToUpdate.getProjectID());
+        model.addAttribute("allTasks", allTasks);
+
         // Return the view name
         return "tasks/update-task-form";
     }
@@ -117,19 +121,21 @@ public class TasksController {
     public String updateTask(@PathVariable int id, @ModelAttribute("taskToUpdate") TasksDTO updatedTask) {
         // Set the task ID for the updated task
         updatedTask.setTaskID(id);
-
+        int projectID = taskService.getTask(id).getProjectID();
+        updatedTask.setProjectID(projectID);
         // Call the service to update the task in the database
         taskService.updateTask(updatedTask);
 
         // Redirect to the task details page after the update
-        return "redirect:/";
+        return String.format("redirect:/viewProject/%d", updatedTask.getProjectID());
     }
     // This method maps to the "delete/{taskID}" URL and deletes a task from the database
     @GetMapping("/delete/{taskID}")
     public String delete(@PathVariable int taskID) {
+        int projectID = taskService.getTask(taskID).getProjectID();
         // Call the service method to delete the task
         taskService.deleteTask(taskID);
         // Redirect to the root URL to refresh the task list
-        return "redirect:/";
+        return String.format("redirect:/viewProject/%d", projectID);
     }
 }

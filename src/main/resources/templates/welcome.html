@@ -8,14 +8,14 @@
     <title>Welcome</title>
 </head>
 <body>
-<h1>ALPHA SOLUTIONS PROJECT MANAGEMENT TOOL</h1>
+<h1>Alpha Solutions Project Management Tool</h1>
 <div th:if="${auth.name.equals('anonymousUser')}">
-    <a href="/login"><button>Log in</button></a>
+    <a href="/login"><button type="button" class="btn btn-dark">Log in</button></a>
 </div>
 <div th:unless="${auth.name.equals('anonymousUser')}">
     <h3 th:text="'Welcome ' + ${auth.name}" />
-    <a href="/projects"><button>Go to projects</button></a>
-    <a href="/logout"><button>Log out</button></a>
+    <a href="/projects"><button type="button" class="btn btn-dark">Go to projects</button></a>
+    <a href="/logout"><button type="button" class="btn btn-dark">Log out</button></a>
 </div>
 
 </body>
