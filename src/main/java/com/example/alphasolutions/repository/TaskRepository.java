@@ -235,6 +235,16 @@ public class TaskRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ps.executeUpdate();
+            ps.close();
+
+            // Delete related subtasks
+            List<TasksDTO> subtasks = getSubtasks(taskID);
+            while (!subtasks.isEmpty()) {
+                for (TasksDTO subtask : subtasks) {
+                    deleteTask(subtask.getTaskID()); // Recursively delete subtasks
+                }
+                subtasks = getSubtasks(taskID);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
