@@ -38,6 +38,11 @@ public class TasksController {
         // Return the name of the overview template to be rendered
         return "tasks/projects-overview";
     }
+    @GetMapping("/create-project")
+    public String showCreateProjectForm(Model model) {
+        model.addAttribute("projectToAdd", new ProjectDTO());
+        return "tasks/create-project-form";
+    }
 
     // This method maps to the "viewProject" URL of the web application and sends the list of tasks in the project to the view
     @GetMapping("/viewProject/{id}")

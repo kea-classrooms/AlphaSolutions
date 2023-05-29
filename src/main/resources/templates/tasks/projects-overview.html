@@ -13,6 +13,7 @@
     <a th:each="project : ${projects}" th:href="@{/viewProject/{id}(id=${project.projectID})}" class="list-group-item list-group-item-action">
         <span th:text="${project}"></span>
     </a>
+    <a th:href="@{/create-project}"><button type="button" class="btn btn-dark">Create Project</button> </a>
 </div>
 
 </body>
