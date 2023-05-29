@@ -46,14 +46,14 @@
                 </li>
             </ul>
             <!-- Bootstrap class added to buttons for a better visual and margin-top 3 added -->
-            <a th:href="@{/viewProject/{id}(id=${task.projectID})}">
-                <button type="button" class="back button">Back</button>
+            <a  class="left" th:href="@{/viewProject/{id}(id=${task.projectID})}">
+                <button type="button" class="red button">Back</button>
             </a>
             <a th:href="@{/updateTask/{id}(id=${task.getTaskID()})}">
                 <button class="button">Update</button>
             </a>
             <a th:href="@{/delete/{taskID}(taskID=${task.getTaskID()})}">
-                <button class="button">Delete</button>
+                <button class="red button">Delete</button>
             </a>
         </div>
         <div class="grid-item" id="footer"></div>

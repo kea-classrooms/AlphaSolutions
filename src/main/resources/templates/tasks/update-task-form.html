@@ -9,7 +9,7 @@
     <title>Update Task</title>
 </head>
 <body>
-<div id="grid-container">
+<div id="grid-container" class="update-task">
     <div class="grid-item" id="header-img">
         <img th:src="@{/logo.svg}" src="/static/logo.svg" alt="Alpha Solutions Logo"/>
     </div>
@@ -79,8 +79,9 @@
                 </select>
             </div>
             <br>
+            <a class="back"><button class="red button">Back</button> </a>
             <!-- Submit Button -->
-            <button type="submit" class="button">Update Task</button>
+            <button type="submit" class="submit button">Update Task</button>
         </form>
     </div>
     <div class="grid-item" id="footer"></div>
