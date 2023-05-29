@@ -10,7 +10,6 @@
     box-sizing: border-box;
     font-family: Montserrat, sans-serif;
     font-weight: 800;
-    text-transform: uppercase;
 }
 
 a, a:link, a:visited, a:hover, a:active{
@@ -35,6 +34,13 @@ footer {
 .grid-item {
     padding: 15px;
 
+}
+
+.back{
+    float: left;
+}
+.card{
+    display: block;
 }
 
 #grid-container {
@@ -84,15 +90,33 @@ button{
     cursor: pointer;
     border-radius: 10px;
 }
-
+td button{
+    float: left;
+    padding: 0;
+}
 p{
     font-size: 40px;
     font-weight: 900;
+}
+.add {
+    grid-column: 5;
 }
 
 h3{
     text-transform: none;
 
+}
+
+p, h1{
+    text-transform: uppercase;
+}
+.form{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+}
+
+.input-field{
+    grid-column: 1/3;
 }
 
 #footer {
