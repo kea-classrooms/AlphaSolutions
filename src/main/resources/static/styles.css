@@ -8,6 +8,16 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+a, a:link, a:visited, a:hover, a:active{
+    text-decoration: none;
+}
+h1{
+    font-weight: 800;
 }
 
 body, html {
@@ -29,32 +39,44 @@ footer {
 
 #grid-container {
     display: grid;
-    grid-template-rows: minmax(0, 1fr) minmax(0, 11fr) auto;
+    grid-template-rows: min-content min-content 10fr auto;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
     grid-gap: 10px;
     min-height: 100%;
     max-height: 100%;
+    max-width: 85%;
     margin: auto;
 }
 
-#header {
-    grid-row: 1;
+#header-text {
     text-align: center;
-    margin: 0;
+    grid-row: 1;
+    grid-column: 2/4;
 }
 
-#header img{
-    max-height: 50%;
-    max-width: 15%;
+#header-img{
+    grid-column: 1;
+}
+
+#blue-part {
+    padding: 50px;
+    grid-row: 2;
+    grid-column: 1/5;
+    background-color: var(--blue);
+    color: white;
+    font-size: 50px;
+    font-weight: 900;
+}
+
+#main-content{
+    grid-row: 3;
+    grid-column: 1/5;
     float: left;
 }
 
-#main-content {
-    grid-row: 2;
-    grid-gap: 20px;
-    background-color: var(--blue);
-}
-
-#logged-in button{
+button{
+    float: right;
+    color: var(--red);
     background-color: white;
     border: none;
     padding: 10px;
@@ -63,7 +85,18 @@ footer {
     border-radius: 10px;
 }
 
+p{
+    font-size: 40px;
+    font-weight: 900;
+}
+
+h3{
+    text-transform: none;
+
+}
+
 #footer {
-    grid-row: 3;
+    grid-column: 1/5;
+    grid-row: 4;
     margin-bottom: 0;
 }
