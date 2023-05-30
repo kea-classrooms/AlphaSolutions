@@ -1,6 +1,7 @@
 package com.example.alphasolutions.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,7 +34,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         //Allows everyone to reach root URL
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/", "**.svg", "**.css").permitAll()
                         //All other requests should be authenticated
                         .anyRequest().authenticated()
                 )
