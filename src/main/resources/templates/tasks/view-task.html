@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="/static/styles.css" th:href="@{/styles.css}">
     <meta charset="UTF-8">
     <title>View Task</title>
-    <style>
-        /* Custom styles can be added here */
-    </style>
 </head>
 <body>
 <div id="grid-container">
@@ -20,9 +17,9 @@
     </div>
     <div class="grid-item" id="main-content">
         <p th:text="${task.getTaskName()}">Task name</p>
-        <!-- p-4 on an element adds 4 units of padding to the top, right, bottom, and left sides. -->
+        <!-- p-5 on an element adds 5 units of padding to the top, right, bottom, and left sides. -->
         <!-- The card class in Bootstrap is used to create a container that visually represents a card-like component. -->
-        <div class="card p-4">
+        <div class="card p-5">
             <h5 class="card-title">Task Details</h5>
             <p class="card-text" th:text="${task.getTaskDescription()}"></p>
             <!-- By applying the list-group class to a container element,
@@ -45,9 +42,8 @@
                     </span>
                 </li>
             </ul>
-            <!-- Bootstrap class added to buttons for a better visual and margin-top 3 added -->
             <a  class="left" th:href="@{/viewProject/{id}(id=${task.projectID})}">
-                <button type="button" class="red button">Back</button>
+                <button type="button" class="red button ">Back</button>
             </a>
             <a th:href="@{/updateTask/{id}(id=${task.getTaskID()})}">
                 <button class="button">Update</button>

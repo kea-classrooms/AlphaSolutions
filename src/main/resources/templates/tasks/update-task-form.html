@@ -19,15 +19,10 @@
     <div class="grid-item" id="main-content">
         <h1>Update Task</h1>
         <!-- Create a form for updating the task -->
-        <!-- form-group and form-control are a part of the bootstrap CSS framework
-         and are used for styling form elements -->
-
-
         <form method="post" th:action="@{/updateTask/{id}(id=${taskToUpdate.taskID})}" th:object="${taskToUpdate}"
               class="form">
 
             <!-- Task Name -->
-            <!-- col-sm-6 removes 6 of the columns out of the 12-column grid system. -->
             <div class="input-field">
                 <label for="taskName">Task Name:</label>
                 <input type="text" id="taskName" th:field="*{taskName}" class="form-control"/>
