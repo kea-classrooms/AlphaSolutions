@@ -33,6 +33,10 @@ public class TaskService {
         taskRepository.addTask(taskToAdd);
     }
 
+    public void addProject(ProjectDTO projectToAdd) {
+        taskRepository.addProject(projectToAdd);
+    }
+
     public TasksDTO getTask(int id) {
         //This method returns a task based on the task id provided.
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.

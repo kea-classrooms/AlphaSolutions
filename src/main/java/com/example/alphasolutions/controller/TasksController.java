@@ -90,6 +90,12 @@ public class TasksController {
         //'redirect' specifies that this endpoint should just point to another endpoint, in this case '/'
         return String.format("redirect:/viewProject/%d", id);
     }
+    @PostMapping("/create-project/{id}/addProject")
+    public String addProject(@ModelAttribute("projectForm")ProjectDTO projectDTO, @PathVariable int id) {
+        projectDTO.setProjectID(id);
+        taskService.addProject(projectDTO);
+        return String.format("redirect:/projects/%d",id);
+    }
 
     // This method maps to the "viewTask/{id}" URL and displays the details of a single task
     @GetMapping("/viewTask/{id}")
