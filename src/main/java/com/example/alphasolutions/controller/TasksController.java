@@ -43,6 +43,11 @@ public class TasksController {
         model.addAttribute("projectToAdd", new ProjectDTO());
         return "tasks/create-project-form";
     }
+    @PostMapping("/create-project")
+    public String addProject(@ModelAttribute("projectForm")ProjectDTO projectDTO) {
+        taskService.addProject(projectDTO);
+        return String.format("redirect:/projects");
+    }
 
     // This method maps to the "viewProject" URL of the web application and sends the list of tasks in the project to the view
     @GetMapping("/viewProject/{id}")
@@ -89,12 +94,6 @@ public class TasksController {
         taskService.addTask(tasksDTO);
         //'redirect' specifies that this endpoint should just point to another endpoint, in this case '/'
         return String.format("redirect:/viewProject/%d", id);
-    }
-    @PostMapping("/create-project/{id}/addProject")
-    public String addProject(@ModelAttribute("projectForm")ProjectDTO projectDTO, @PathVariable int id) {
-        projectDTO.setProjectID(id);
-        taskService.addProject(projectDTO);
-        return String.format("redirect:/projects/%d",id);
     }
 
     // This method maps to the "viewTask/{id}" URL and displays the details of a single task
