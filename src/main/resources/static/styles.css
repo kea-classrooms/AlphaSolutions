@@ -128,7 +128,7 @@ h3{
 p, h1{
     text-transform: uppercase;
 }
-.form{
+form{
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr;
     grid-template-rows: auto auto auto auto auto auto auto;

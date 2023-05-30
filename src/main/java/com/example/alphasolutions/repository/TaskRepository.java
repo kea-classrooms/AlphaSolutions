@@ -106,6 +106,20 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
     }
+    public void addProject(ProjectDTO projectToAdd){
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "INSERT INTO project(projectName) VALUE(?)";
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1,projectToAdd.getProjectName());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next())
+                projectToAdd.setProjectID(rs.getInt(1));
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void setDate(TasksDTO taskToAdd) {
         try {
