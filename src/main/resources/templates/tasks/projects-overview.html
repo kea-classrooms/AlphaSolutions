@@ -4,19 +4,35 @@
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/styles.css" th:href="@{/styles.css}">
     <meta charset="UTF-8">
     <title>Project overview</title>
 </head>
 <body>
-<h1>Welcome! Please choose a project below</h1>
-<div class="list-group">
-    <a th:each="project : ${projects}" th:href="@{/viewProject/{id}(id=${project.projectID})}" class="list-group-item list-group-item-action">
-        <span th:text="${project}"></span>
-    </a>
+<div id="grid-container">
+    <div class="grid-item" id="header-img">
+        <img th:src="@{/logo.svg}" src="/static/logo.svg" alt="Alpha Solutions Logo"/>
+    </div>
+    <div class="grid-item" id="blue-part">
+        <p>Powerful project management right at your fingertips</p>
+    </div>
+    <div class="grid-item" id="main-content">
+        <p>
+            We ensure that you always have control over your project
+        </p>
+        <h3>Please choose a project below</h3>
+        <div class="list-group">
+            <a th:each="project : ${projects}" th:href="@{/viewProject/{id}(id=${project.projectID})}"
+               class="list-group-item list-group-item-action">
+                <span th:text="${project}"></span>
+            </a>
+        </div>
+        <a th:href="@{/}">
+            <button type="button" class="red button">Back</button>
+        </a>
+    </div>
+    <div class="grid-item" id="footer"></div>
 </div>
-<a th:href="@{/}"><button type="button" class="btn btn-dark mt-3">Back</button></a>
-
-
-
+</div>
 </body>
 </html>

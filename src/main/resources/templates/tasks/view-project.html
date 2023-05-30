@@ -4,61 +4,71 @@
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/styles.css" th:href="@{/styles.css}">
     <meta charset="UTF-8">
     <title>Tasks</title>
 </head>
-<!-- TEMPORARY! will be moved to css file. -->
-<style>
-    .link-style {
-        color: black; /* Set the color of the link */
-        text-decoration: underline; /* Add underline to the link */
-    }
-</style>
 <body>
-<h1 th:text="${project.getProjectName()}" />
-<!-- Create a table to display task information -->
-<table class="table">
-    <thead>
-    <tr>
-        <!-- Table header -->
-        <th scope="col">Task #</th>
-        <th scope="col">Task title</th>
-        <th scope="col">Subtasks</th>
-        <th scope="col">Time estimate(hours)</th>
-        <th scope="col">Cost estimate(DKK)</th>
-        <th scope="col">Deadline</th>
+<div id="grid-container">
+    <div class="grid-item" id="header-img">
+        <img th:src="@{/logo.svg}" src="/static/logo.svg" alt="Alpha Solutions Logo"/>
+    </div>
+    <div class="grid-item" id="blue-part">
+        <p>Powerful project management right at your fingertips</p>
+    </div>
+    <div class="grid-item" id="main-content">
+        <h1 th:text="${project.getProjectName()}"> PROJECT NAME </h1>
+        <!-- Create a table to display task information -->
+        <table class="table">
+            <thead>
+            <tr>
+                <!-- Table header -->
+                <th scope="col">Task #</th>
+                <th scope="col">Task title</th>
+                <th scope="col">Subtasks</th>
+                <th scope="col">Time estimate(hours)</th>
+                <th scope="col">Cost estimate(DKK)</th>
+                <th scope="col">Deadline</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Iterate over the list of tasks -->
-    <!-- Display task information in each row -->
-    <tr th:if="${TasksDTO.superTask == 0}" th:each="TasksDTO : ${tasks}">
-        <td th:text="${TasksDTO.getTaskID()}"/>
-        <td>
-            <!-- Create a link to view task details -->
-            <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}" class="list-group-item list-group-item-action link-style">
-                <span th:text="${TasksDTO.getTaskName()}"/></a>
-        </td>
-        <td>
-            <!-- Iterate over subtasks within the task -->
-            <!-- Create links to view subtask details -->
-            <span th:each="subtask : ${TasksDTO.getSubtasks()}">
-                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"class="list-group-item list-group-item-action link-style">
-                    <span th:text="${subtask}"/></a>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iterate over the list of tasks -->
+            <!-- Display task information in each row -->
+            <tr th:if="${TasksDTO.superTask == 0}" th:each="TasksDTO : ${tasks}">
+                <td th:text="${TasksDTO.getTaskID()}">0</td>
+                <td>
+                    <!-- Create a link to view task details -->
+                    <a th:href="@{/viewTask/{id}(id = ${TasksDTO.getTaskID()})}"
+                       class="list-group-item list-group-item-action link-style">
+                        <button class="button" th:text="${TasksDTO.getTaskName()}">Task name</button></a>
+                </td>
+                <td>
+                    <!-- Iterate over subtasks within the task -->
+                    <!-- Create links to view subtask details -->
+                    <span th:each="subtask : ${TasksDTO.getSubtasks()}">
+                <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"
+                   class="list-group-item list-group-item-action link-style">
+                    <button class="button" th:text="${subtask}">SUBTASK</button></a>
                 <br>
             </span>
-        </td>
-        <td th:text="${TasksDTO.getTotalEstimatedTime()}"></td> <!-- Display total estimated time -->
-        <td th:text="${TasksDTO.getCost()}"></td> <!-- Display cost estimate -->
-        <td th:text="${TasksDTO.getDeadline_time()}"></td>
-
-    </tr>
-    </tbody>
-</table>
-<!-- Create a button to add a new task -->
-<a th:href="@{/viewProject/{id}/addTask (id = ${project.projectID})}"><button type="button" class="btn btn-dark">Create task!</button></a>
-<!-- Create a button to go back to frontpage -->
-<a th:href="@{/projects}"><button type="button" class="btn btn-dark">Back</button></a>
+                </td>
+                <td th:text="${TasksDTO.getTotalEstimatedTime()}">100</td> <!-- Display total estimated time -->
+                <td th:text="${TasksDTO.getCost()}">100</td> <!-- Display cost estimate -->
+                <td th:text="${TasksDTO.getDeadline_time()}">DATE</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Create a button to add a new task -->
+        <a th:href="@{/viewProject/{id}/addTask (id = ${project.projectID})}">
+            <button type="button" class="button">Create task!</button>
+        </a>
+        <!-- Create a button to go back to frontpage -->
+        <a th:href="@{/projects}">
+            <button type="button" class="red button">Back</button>
+        </a>
+    </div>
+    <div class="grid-item" id="footer"></div>
+</div>
 </body>
 </html>
