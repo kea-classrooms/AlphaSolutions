@@ -48,7 +48,7 @@
                     <!-- Create links to view subtask details -->
                     <span th:each="subtask : ${TasksDTO.getSubtasks()}">
                 <a th:href="@{/viewTask/{id}(id = ${subtask.getTaskID()})}"
-                   class="list-group-item list-group-item-action">
+                   class="list-group-item list-group-item-action link-style">
                     <button class="button" th:text="${subtask}">SUBTASK</button></a>
                 <br>
             </span>
@@ -65,7 +65,7 @@
         </a>
         <!-- Create a button to go back to frontpage -->
         <a th:href="@{/projects}">
-            <button type="button" class="button">Back</button>
+            <button type="button" class="red button">Back</button>
         </a>
     </div>
     <div class="grid-item" id="footer"></div>

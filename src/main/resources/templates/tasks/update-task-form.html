@@ -9,7 +9,7 @@
     <title>Update Task</title>
 </head>
 <body>
-<div id="grid-container">
+<div id="grid-container" class="update-task">
     <div class="grid-item" id="header-img">
         <img th:src="@{/logo.svg}" src="/static/logo.svg" alt="Alpha Solutions Logo"/>
     </div>
@@ -19,15 +19,10 @@
     <div class="grid-item" id="main-content">
         <h1>Update Task</h1>
         <!-- Create a form for updating the task -->
-        <!-- form-group and form-control are a part of the bootstrap CSS framework
-         and are used for styling form elements -->
-
-
         <form method="post" th:action="@{/updateTask/{id}(id=${taskToUpdate.taskID})}" th:object="${taskToUpdate}"
               class="form">
 
             <!-- Task Name -->
-            <!-- col-sm-6 removes 6 of the columns out of the 12-column grid system. -->
             <div class="input-field">
                 <label for="taskName">Task Name:</label>
                 <input type="text" id="taskName" th:field="*{taskName}" class="form-control"/>
@@ -79,8 +74,9 @@
                 </select>
             </div>
             <br>
+            <a class="back"><button class="red button">Back</button> </a>
             <!-- Submit Button -->
-            <button type="submit" class="button">Update Task</button>
+            <button type="submit" class="submit button">Update Task</button>
         </form>
     </div>
     <div class="grid-item" id="footer"></div>

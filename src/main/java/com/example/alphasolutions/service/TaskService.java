@@ -31,6 +31,10 @@ public class TaskService {
         taskRepository.addTask(taskToAdd);
     }
 
+    public void addProject(ProjectDTO projectToAdd) {
+        taskRepository.addProject(projectToAdd);
+    }
+
     public TasksDTO getTask(int id) {
         //This method returns a task based on the task id provided.
         //It calls the getTask method in the taskRepository object to retrieve the task from the database.
@@ -59,7 +63,7 @@ public class TaskService {
             // Updates the task's cost
             task.setCost(cost);
             int time = calculatedAttributeSum(task, "time");
-            // Updates the task's cost
+            // Updates the task's time
             task.setTotalEstimatedTime(time);
         }
         // Returns the updated list of tasks
