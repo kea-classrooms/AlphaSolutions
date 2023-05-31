@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
@@ -94,4 +95,7 @@ public class TaskService {
         taskRepository.updateTask(updatedTask);
     }
 
+    public void resetDatabase() throws FileNotFoundException {
+        taskRepository.resetDatabase(true);
+    }
 }

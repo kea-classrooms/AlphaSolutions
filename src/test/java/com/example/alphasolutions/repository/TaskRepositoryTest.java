@@ -53,6 +53,7 @@ public class TaskRepositoryTest {
                 5,
                 null,
                 0,
+                1,
                 today
         );
         taskToAdd.setProjectID(testProjectDef);
@@ -85,6 +86,7 @@ public class TaskRepositoryTest {
                 69,
                 null,
                 0,
+                1,
                 today
         );
         taskRepository.updateTask(updatedTask);

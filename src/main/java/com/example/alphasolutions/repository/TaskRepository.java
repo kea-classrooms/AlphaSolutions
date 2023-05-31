@@ -2,8 +2,13 @@ package com.example.alphasolutions.repository;
 
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.stereotype.Repository;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -252,6 +257,18 @@ public class TaskRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    public void resetDatabase(boolean shouldCreateTestData) throws FileNotFoundException {
+        Connection con = DatabaseManager.getConnection();
+        ScriptRunner runner = new ScriptRunner(con);
+        Reader initScript = new BufferedReader(new FileReader("src/mysql/init/1AlphaSolutions.sql"));
+        runner.runScript(initScript);
+        if (shouldCreateTestData){
+            Reader insertScript = new BufferedReader(new FileReader("src/mysql/init/2AlphasolutionsInsertData.sql"));
+            runner.runScript(insertScript);
         }
     }
 }
