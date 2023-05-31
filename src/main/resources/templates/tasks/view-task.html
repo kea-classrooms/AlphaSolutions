@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <meta charset="UTF-8">
-  <title>Tasks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/styles.css" th:href="@{/styles.css}">
+    <meta charset="UTF-8">
+    <title>View Task</title>
 </head>
 <body>
-<h1 th:text="${task.getTaskName()}"/>
-
+<div id="grid-container">
+    <div class="grid-item" id="header-img">
+        <img th:src="@{/logo.svg}" src="/static/logo.svg" alt="Alpha Solutions Logo"/>
+    </div>
+    <div class="grid-item" id="blue-part">
+        <p>Powerful project management right at your fingertips</p>
+    </div>
+    <div class="grid-item" id="main-content">
+        <p th:text="${task.getTaskName()}">Task name</p>
+        <!-- p-5 on an element adds 5 units of padding to the top, right, bottom, and left sides. -->
+        <!-- The card class in Bootstrap is used to create a container that visually represents a card-like component. -->
+        <div class="card p-5">
+            <h5 class="card-title">Task Details</h5>
+            <p class="card-text" th:text="${task.getTaskDescription()}"></p>
+            <!-- By applying the list-group class to a container element,
+             such as a <ul> or <div>, you can transform it into a list-group component -->
+            <ul class="list-group">
+                <li class="list-group-item">Total Estimated Time:
+                    <span th:text="${task.getTotalEstimatedTime()}">
+                        100
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    Cost:
+                    <span th:text="${task.getCost()}"> 100
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    Deadline:
+                    <span th:text="${task.getDeadline_time()}">
+                        Date
+                    </span>
+                </li>
+            </ul>
+            <a  class="left" th:href="@{/viewProject/{id}(id=${task.projectID})}">
+                <button type="button" class="red button ">Back</button>
+            </a>
+            <a th:href="@{/updateTask/{id}(id=${task.getTaskID()})}">
+                <button class="button">Update</button>
+            </a>
+            <a th:href="@{/delete/{taskID}(taskID=${task.getTaskID()})}">
+                <button class="red button">Delete</button>
+            </a>
+        </div>
+        <div class="grid-item" id="footer"></div>
+    </div>
+</div>
 </body>
 </html>

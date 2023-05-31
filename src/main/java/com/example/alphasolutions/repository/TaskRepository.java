@@ -2,18 +2,11 @@ package com.example.alphasolutions.repository;
 
 import com.example.alphasolutions.DTOs.ProjectDTO;
 import com.example.alphasolutions.DTOs.TasksDTO;
-import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.swing.UIManager.*;
 
 @Repository("AlphaSolutions")
 public class TaskRepository {
@@ -38,10 +31,20 @@ public class TaskRepository {
                 List<TasksDTO> subtasks = getSubtasks(rs.getInt("taskID"));
 
                 Date deadline_time = rs.getDate("deadline_time");
-                TasksDTO taskToAdd = (new TasksDTO(taskID, taskName, taskDescription, cost, totalEstimatedTime, subtasks, superTask, deadline_time));
-                taskToAdd.setProjectID(id);
                 // Create a new TasksDTO object and add it to the tasks list
-                tasks.add(taskToAdd);
+                tasks.add(
+                        new TasksDTO(
+                                taskID,
+                                taskName,
+                                taskDescription,
+                                cost,
+                                totalEstimatedTime,
+                                subtasks,
+                                superTask,
+                                rs.getInt("project_ID"),
+                                deadline_time
+                        )
+                );
             }
         } catch (SQLException e) {
             // If an SQL exception occurs, wrap it in a RuntimeException and rethrow it
@@ -54,13 +57,13 @@ public class TaskRepository {
     // This method retrieves all subtasks of a given task ID from the database and returns them as a list of TasksDTO objects
     private List<TasksDTO> getSubtasks(int taskID) {
         List<TasksDTO> subtasks = new ArrayList<>();
-        try{
+        try {
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks LEFT JOIN deadlines USING(taskID) WHERE superTask = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 // Create a new TasksDTO object for each subtask and add it to the subtasks list
                 subtasks.add(new TasksDTO(
                         rs.getInt("taskID"),
@@ -70,8 +73,9 @@ public class TaskRepository {
                         rs.getInt("totalEstimatedTime"),
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
+                        rs.getInt("project_ID"),
                         rs.getDate("deadline_time")
-                        ));
+                ));
                 // Subtasks don't have their own subtasks, so set this field to null
 
             }
@@ -102,36 +106,41 @@ public class TaskRepository {
             throw new RuntimeException(e);
         }
     }
+    public void addProject(ProjectDTO projectToAdd){
+        try {
+            Connection con = DatabaseManager.getConnection();
+            String query = "INSERT INTO project(projectName) VALUE(?)";
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1,projectToAdd.getProjectName());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next())
+                projectToAdd.setProjectID(rs.getInt(1));
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void setDate(TasksDTO taskToAdd) {
-        try{
+        try {
             //Get connection
             Connection con = DatabaseManager.getConnection();
             //Check whether this task is has a supertask, if so, our taskID should be the supertask's
             int taskID = taskToAdd.getSuperTask() != 0 ? taskToAdd.getSuperTask() : taskToAdd.getTaskID();
 
             //Check if taskID is already present in deadlines schema
-            String query = "SELECT * FROM deadlines WHERE taskID = ?";
-            PreparedStatement ps = con.prepareStatement(query);
+            String getDeadlineQuery = "SELECT * FROM deadlines WHERE taskID = ?";
+            PreparedStatement ps = con.prepareStatement(getDeadlineQuery);
             ps.setInt(1, taskID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                //Update the value deadline_time on the row where taskID = taskToAdd's deadline_time
-                String updateDeadlineQuery = "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?";
-                ps = con.prepareStatement(updateDeadlineQuery);
-                ps.setDate(1, taskToAdd.getDeadline_time());
-                //Use new taskID variable, so we make sure to update the correct row
-                ps.setInt(2, taskID);
-                ps.executeUpdate();
-            }else{
-                //Make a new row in deadlines table
-                String addDeadlineQuery = "INSERT INTO deadlines(deadline_time, taskID) VALUES (?, ?)";
-                ps = con.prepareStatement(addDeadlineQuery);
-                ps.setDate(1, taskToAdd.getDeadline_time());
-                //Use new taskID variable, so we make sure to insert the correct row
-                ps.setInt(2, taskID);
-                ps.executeUpdate();
-            }
+
+            //Find out whether deadline should be updated or inserted
+            String insertDeadlineQuery = rs.next() ? "UPDATE deadlines SET deadline_time = ? WHERE taskID = ?" : "INSERT INTO deadlines(deadline_time, taskID) VALUES (?, ?)";
+            ps = con.prepareStatement(insertDeadlineQuery);
+            ps.setDate(1, taskToAdd.getDeadline_time());
+            //Use new taskID variable, so we make sure to update the correct row
+            ps.setInt(2, taskID);
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -140,13 +149,13 @@ public class TaskRepository {
     // This method retrieves a task with the given ID from the database and returns it as a TasksDTO object
     public TasksDTO getTask(int id) {
         TasksDTO task = null;
-        try{
+        try {
             Connection con = DatabaseManager.getConnection();
             String query = "SELECT * FROM tasks LEFT JOIN deadlines USING(taskID) WHERE taskID = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 task = new TasksDTO(
                         rs.getInt("taskID"),
                         rs.getString("taskName"),
@@ -155,9 +164,9 @@ public class TaskRepository {
                         rs.getInt("totalEstimatedTime"),
                         getSubtasks(rs.getInt("taskID")),
                         rs.getInt("superTask"),
+                        rs.getInt("project_ID"),
                         rs.getDate("deadline_time")); // pass the task ID to the getSubtasks method
             }
-            task.setProjectID(rs.getInt("project_ID"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -171,8 +180,11 @@ public class TaskRepository {
             String query = "SELECT * FROM project";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                projects.add(new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID")));
+            while (rs.next()) {
+                projects.add(new ProjectDTO(
+                        rs.getInt("projectID"),
+                        rs.getString("projectName"),
+                        rs.getInt("managerEmployee_ID")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -188,14 +200,18 @@ public class TaskRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                project = new ProjectDTO(rs.getInt("projectID"), rs.getString("projectName"), rs.getInt("managerEmployee_ID"));
+            if (rs.next()) {
+                project = new ProjectDTO(
+                        rs.getInt("projectID"),
+                        rs.getString("projectName"),
+                        rs.getInt("managerEmployee_ID"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return project;
     }
+
     // This method updates an existing task in the database with the given properties
     public void updateTask(TasksDTO updatedTask) {
         try {
@@ -210,11 +226,11 @@ public class TaskRepository {
             ps.setInt(5, updatedTask.getSuperTask());
             ps.setInt(6, updatedTask.getTaskID());
             ps.executeUpdate();
+            setDate(updatedTask); // Update the deadline for the task
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     // This method deletes a task with the given ID from the database
     public void deleteTask(int taskID) {
@@ -224,19 +240,18 @@ public class TaskRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, taskID);
             ps.executeUpdate();
+            ps.close();
+
+            // Delete related subtasks
+            List<TasksDTO> subtasks = getSubtasks(taskID);
+            while (!subtasks.isEmpty()) {
+                for (TasksDTO subtask : subtasks) {
+                    deleteTask(subtask.getTaskID()); // Recursively delete subtasks
+                }
+                subtasks = getSubtasks(taskID);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public void resetDatabase(boolean shouldCreateTestData) throws FileNotFoundException {
-        Connection con = DatabaseManager.getConnection();
-        ScriptRunner runner = new ScriptRunner(con);
-        Reader initScript = new BufferedReader(new FileReader("src/mysql/init/1AlphaSolutions.sql"));
-        runner.runScript(initScript);
-        if (shouldCreateTestData){
-            Reader insertScript = new BufferedReader(new FileReader("src/mysql/init/2AlphasolutionsInsertData.sql"));
-            runner.runScript(insertScript);
         }
     }
 }

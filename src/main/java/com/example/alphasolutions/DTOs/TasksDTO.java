@@ -1,7 +1,6 @@
 package com.example.alphasolutions.DTOs;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class TasksDTO {
@@ -26,6 +25,7 @@ public class TasksDTO {
             int totalEstimatedTime,
             List<TasksDTO> subtasks,
             int superTask,
+            int projectID,
             Date deadline_time
     ) {
         this.taskID = taskID;
@@ -36,6 +36,7 @@ public class TasksDTO {
         this.subtasks = subtasks;
         this.superTask = superTask;
         this.deadline_time = deadline_time;
+        this.projectID = projectID;
     }
 
     // Empty constructor for TasksDTO object
