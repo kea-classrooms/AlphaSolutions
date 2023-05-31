@@ -60,7 +60,7 @@ class TasksControllerTest {
         ProjectDTO project = new ProjectDTO();
         List<TasksDTO> tasks = new ArrayList<>();
         when(taskService.getProject(projectId)).thenReturn(project);
-        when(taskService.getTaskWithUpdatedCost(projectId)).thenReturn(tasks);
+        when(taskService.getTaskWithUpdatedCostAndTime(projectId)).thenReturn(tasks);
 
         String viewName = tasksController.viewProjects(model, projectId);
 

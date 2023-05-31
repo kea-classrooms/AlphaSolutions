@@ -25,8 +25,17 @@ class TaskServiceTest {
 
     private TaskService taskService;
 
-    private TasksDTO testTask = new TasksDTO(1, "test", "testDesc", 1, 2, null, 0, Date.valueOf(LocalDate.now()));
-    private TasksDTO testTask2 = new TasksDTO(2, "test2", "testDesc2", 12, 22, null, 1, Date.valueOf(LocalDate.now()));
+    private TasksDTO testTask = new TasksDTO(
+            1,
+            "test",
+            "testDesc",
+            1,
+            2,
+            null,
+            0,
+            1,
+            Date.valueOf(LocalDate.now()));
+    private TasksDTO testTask2 = new TasksDTO(2, "test2", "testDesc2", 12, 22, null, 1, 1,Date.valueOf(LocalDate.now()));
 
     private ProjectDTO testProject = new ProjectDTO(1, "test project", 2);
 
@@ -137,7 +146,7 @@ class TaskServiceTest {
         when(taskRepository.getTasks(projectId)).thenReturn(tasks);
 
         // Act
-        List<TasksDTO> updatedTasks = taskService.getTaskWithUpdatedCost(projectId);
+        List<TasksDTO> updatedTasks = taskService.getTaskWithUpdatedCostAndTime(projectId);
 
         // Assert
         assertEquals(tasks.size(), updatedTasks.size());
