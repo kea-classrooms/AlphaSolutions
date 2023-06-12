@@ -20,7 +20,7 @@ public class TasksController {
     }
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model){ //Springboot frameworket injects model to our method
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("auth", auth);
         return "welcome";
